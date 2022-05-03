@@ -1,7 +1,7 @@
 import React from "react";
 export function PassChecker({ pass = "", confirmPass = "" }) {
   return (
-    <div className="flex flex-col bg-secondary ">
+    <div className="flex p-2 flex-col bg-secondary ">
       <h2 className="text-sm text-primary font-bold">Password Checks</h2>
       {
         <p

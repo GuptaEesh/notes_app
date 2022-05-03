@@ -85,7 +85,7 @@ export function SignUpScreen() {
           <span className="flex flex-col">
             Already a customer?
             <Link to="/signin">
-              <span className="pointer bg-secondary font-bold">
+              <span className="rounded py-0.5 px-1 pointer bg-secondary font-bold">
                 Log in here &gt;
               </span>
             </Link>

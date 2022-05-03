@@ -5,8 +5,6 @@ import { useAuth } from "../../helpers/context";
 import { loginHandler } from "../../helpers/utils";
 export function LoginScreen() {
   const initial = {
-    email: "",
-    password: "",
     error: false,
     loader: false,
   };
@@ -24,7 +22,11 @@ export function LoginScreen() {
       email: "Aasda@sddfd.com",
       password: "asasd",
     });
-
+  const inputHandler = (e) =>
+    setFormFields({
+      ...formFields,
+      [e.target.name]: e.target.value,
+    });
   const submitHandler = (e) =>
     loginHandler(e, setFormFields, login, formFields);
   return (
@@ -42,27 +44,19 @@ export function LoginScreen() {
           <InputSimple
             title="Email"
             inputType="email"
+            inputName="email"
             inputClass="p-1 w-full"
             inputValue={email}
-            inputFunc={(e) =>
-              setFormFields({
-                ...formFields,
-                email: e.target.value,
-              })
-            }
+            inputFunc={inputHandler}
             inputPlaceHolder="email..."
           />
           <InputPass
             title="Password"
             inputType="password"
+            inputName="password"
             inputClass="p-1 w-full "
             inputValue={password}
-            inputFunc={(e) =>
-              setFormFields({
-                ...formFields,
-                password: e.target.value,
-              })
-            }
+            inputFunc={inputHandler}
             inputPlaceHolder="password..."
           />
           {error ? (
@@ -77,12 +71,15 @@ export function LoginScreen() {
             btnText="Guest Login"
             btnFunc={guestLogin}
           />
-          <h2 className="flex flex-col">
+          <span className="flex flex-col">
             New Here?
-            <Link className="pointer bg-secondary font-bold" to="/signup">
-              <span>Register Here &gt; </span>
+            <Link to="/signup">
+              <span className="rounded py-0.5 px-1 pointer bg-secondary font-bold">
+                Register Here &gt;{" "}
+              </span>
             </Link>
-          </h2>
+          </span>
+
           <Button
             btnType="rounded p-1 bg-primary text-secondary font-bold"
             btnText="Login"
