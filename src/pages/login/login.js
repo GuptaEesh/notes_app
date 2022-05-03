@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, InputPass, InputSimple, Loader } from "../../components";
 import { useAuth } from "../../helpers/context";
-import { loginHandler } from "../../helpers/utils";
+import { loginHandler, requests } from "../../helpers/utils";
 export function LoginScreen() {
   const initial = {
     error: false,
@@ -12,15 +12,15 @@ export function LoginScreen() {
   const [formFields, setFormFields] = useState(initial);
   const navigate = useNavigate();
   useEffect(() => {
-    isAuthenticated ? navigate("/") : navigate("/signin");
+    isAuthenticated ? navigate("/") : navigate(requests.login);
   }, [isAuthenticated]);
   const { email, password, error, loader } = formFields;
 
   const guestLogin = () =>
     setFormFields({
       ...formFields,
-      email: "Aasda@sddfd.com",
-      password: "asasd",
+      email: "eesh@eesh.com",
+      password: "1Gu!qwer",
     });
   const inputHandler = (e) =>
     setFormFields({

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Input, InputPass, InputSimple, Loader } from "../../components";
 import { useAuth } from "../../helpers/context";
-import { signUpHandler } from "../../helpers/utils";
+import { requests, signUpHandler } from "../../helpers/utils";
 import { PassChecker } from "./password-checker";
 
 export function SignUpScreen() {
@@ -18,7 +18,7 @@ export function SignUpScreen() {
     formFields;
   console.log(formFields);
   useEffect(() => {
-    isAuthenticated ? navigate("/") : navigate("/signup");
+    isAuthenticated ? navigate("/") : navigate(requests.signup);
   }, [isAuthenticated]);
   const inputHandler = (e) =>
     setFormFields({

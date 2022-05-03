@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import { SideNav } from "./components";
-import { Home, LoginScreen, SignUpScreen } from "./pages";
+import { Home, LoginScreen, SignUpScreen, NotesScreen } from "./pages";
 
 function App() {
   const location = useLocation();
@@ -16,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<LoginScreen />} />
         <Route path="/signup" element={<SignUpScreen />} />
+        <Route path="/notes" element={<NotesScreen />} />
       </Routes>
     </div>
   );
