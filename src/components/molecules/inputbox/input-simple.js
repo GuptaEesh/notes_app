@@ -7,6 +7,7 @@ export function InputSimple({
   inputType,
   inputValue,
   inputFunc,
+  inputName,
   pattern,
 }) {
   return (
@@ -19,6 +20,7 @@ export function InputSimple({
         inputPlaceHolder={inputPlaceHolder}
         inputValue={inputValue}
         inputFunc={inputFunc}
+        inputName={inputName}
       />
     </label>
   );

@@ -79,10 +79,8 @@ export function LoginScreen() {
           />
           <h2 className="flex flex-col">
             New Here?
-            <Link to="/signup">
-              <span className="pointer bg-secondary font-bold">
-                Register Here &gt;{" "}
-              </span>
+            <Link className="pointer bg-secondary font-bold" to="/signup">
+              <span>Register Here &gt; </span>
             </Link>
           </h2>
           <Button

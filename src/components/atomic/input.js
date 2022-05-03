@@ -2,6 +2,7 @@ import React from "react";
 export const Input = ({
   inputClass,
   checkStatus,
+  pattern,
   inputFunc,
   inputName,
   inputPlaceHolder,
@@ -12,11 +13,13 @@ export const Input = ({
     <input
       checked={checkStatus}
       type={inputType}
+      pattern={pattern}
       value={inputValue}
       name={inputName}
       onChange={inputFunc}
       className={inputClass}
       placeholder={inputPlaceHolder}
+      required
     />
   );
 };

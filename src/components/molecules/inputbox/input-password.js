@@ -7,6 +7,7 @@ export function InputPass({
   inputPlaceHolder,
   inputValue,
   inputFunc,
+  inputName,
   pattern,
 }) {
   const [visibility, setVisibility] = useState(false);
@@ -21,6 +22,7 @@ export function InputPass({
           pattern={pattern}
           inputValue={inputValue}
           inputFunc={inputFunc}
+          inputName={inputName}
         />
         {visibility ? (
           <BsEyeSlash

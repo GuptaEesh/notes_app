@@ -25,9 +25,11 @@ const loginHandler = async (e, setFormFields, login, formFields) => {
 };
 const signUpHandler = async (e, setFormFields, login, formFields) => {
   const { name, email, password, confirmPass } = formFields;
+
   e.preventDefault();
   try {
-    if (password !== confirmPass) throw "passwordError";
+    if (password !== confirmPass)
+      throw Object.assign({}, { message: "Passwords don't match" });
     setFormFields({ ...formFields, loader: true });
     const { data } = await axios.post(requests.signup, {
       email,
@@ -37,14 +39,14 @@ const signUpHandler = async (e, setFormFields, login, formFields) => {
   } catch (err) {
     setFormFields({
       ...formFields,
-      error: true,
-      message:
-        err === "passwordError"
-          ? "Passwords don't match"
-          : "Directly login, you are our user.",
+      message: err.message,
     });
   } finally {
-    setFormFields({ ...formFields, loader: false });
+    setFormFields({
+      ...formFields,
+      error: true,
+      loader: false,
+    });
   }
 };
 export { loginHandler, signUpHandler };

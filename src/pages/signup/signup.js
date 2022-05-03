@@ -7,10 +7,6 @@ import { PassChecker } from "./password-checker";
 
 export function SignUpScreen() {
   const initial = {
-    name: "",
-    email: "",
-    password: "",
-    confirmPass: "",
     error: false,
     message: "",
     loader: false,
@@ -20,9 +16,15 @@ export function SignUpScreen() {
   const [formFields, setFormFields] = useState(initial);
   const { name, email, password, confirmPass, error, message, loader } =
     formFields;
+  console.log(formFields);
   useEffect(() => {
     isAuthenticated ? navigate("/") : navigate("/signup");
   }, [isAuthenticated]);
+  const inputHandler = (e) =>
+    setFormFields({
+      ...formFields,
+      [e.target.name]: e.target.value,
+    });
   const submitHandler = (e) =>
     signUpHandler(e, setFormFields, login, formFields);
   return (
@@ -40,52 +42,36 @@ export function SignUpScreen() {
           {" "}
           <InputSimple
             title="Name"
+            inputName="name"
             inputClass="p-1 w-full"
             inputPlaceHolder="name..."
             inputType="text"
             inputValue={name}
-            inputFunc={(e) =>
-              setFormFields({
-                ...formFields,
-                name: e.target.value,
-              })
-            }
+            inputFunc={inputHandler}
           />
           <InputSimple
             title="Email"
+            inputName="email"
             inputClass="p-1 w-full"
             inputPlaceHolder="email..."
             inputType="email"
             inputValue={email}
-            inputFunc={(e) =>
-              setFormFields({
-                ...formFields,
-                email: e.target.value,
-              })
-            }
+            inputFunc={inputHandler}
           />
           <InputPass
             title="Password"
+            inputName="password"
             inputValue={password}
-            inputFunc={(e) =>
-              setFormFields({
-                ...formFields,
-                password: e.target.value,
-              })
-            }
+            inputFunc={inputHandler}
             inputClass="p-1 w-full"
             inputPlaceHolder="password..."
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
           />
           <InputPass
             title="Repeat Password"
+            inputName="confirmPass"
             inputValue={confirmPass}
-            inputFunc={(e) =>
-              setFormFields({
-                ...formFields,
-                confirmPass: e.target.value,
-              })
-            }
+            inputFunc={inputHandler}
             inputClass="p-1 w-full"
             inputPlaceHolder="confirm password.."
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}"
@@ -96,9 +82,8 @@ export function SignUpScreen() {
           ) : (
             <span className=" opacity-0 ">Good to go!</span>
           )}
-          <span>
+          <span className="flex flex-col">
             Already a customer?
-            <br />{" "}
             <Link to="/signin">
               <span className="pointer bg-secondary font-bold">
                 Log in here &gt;
