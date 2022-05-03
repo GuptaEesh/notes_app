@@ -11,7 +11,7 @@ const Home = () => {
         </p>
         <Link
           className="rounded p-1 text-3xl bg-primary text-secondary"
-          to="/notes"
+          to="/signin"
         >
           Explore &gt;
         </Link>
