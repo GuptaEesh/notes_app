@@ -10,43 +10,84 @@ const loginHandler = async (e, setFormFields, login, formFields) => {
       email,
       password,
     });
+    setFormFields({ ...formFields, loader: false });
     login(data);
   } catch (err) {
     setFormFields({ ...formFields, error: true });
-  } finally {
-    setFormFields({
-      ...formFields,
-      email: "",
-      password: "",
-      error: true,
-      loader: false,
-    });
   }
 };
 const signUpHandler = async (e, setFormFields, login, formFields) => {
   const { name, email, password, confirmPass } = formFields;
 
   e.preventDefault();
+  if (password !== confirmPass) {
+    setFormFields({
+      ...formFields,
+      error: true,
+      message: "Passwords don't match!",
+    });
+    return;
+  }
+
   try {
-    if (password !== confirmPass)
-      throw Object.assign({}, { message: "Passwords don't match" });
-    setFormFields({ ...formFields, loader: true });
+    setFormFields({
+      ...formFields,
+      loader: true,
+    });
     const { data } = await axios.post(requests.signup, {
       email,
       password,
+    });
+    setFormFields({
+      ...formFields,
+      loader: false,
     });
     login(data);
   } catch (err) {
     setFormFields({
       ...formFields,
-      message: err.message,
-    });
-  } finally {
-    setFormFields({
-      ...formFields,
       error: true,
-      loader: false,
+      message: "User already exists!",
     });
   }
 };
-export { loginHandler, signUpHandler };
+
+const getNotes = async (token, dispatchData, tag) => {
+  // const res = await axios.post(
+  //   "/api/note",
+  //   {
+  //     title: "Note1",
+  //     description: "ASDASd",
+  //     styles: "SDFsdf",
+  //     isEdit: false,
+  //     isPinned: false,
+  //     tag: "Hidf",
+  //   },
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }
+  // );
+  const res = await axios.get(`/api/note`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const notes =
+    tag === "all"
+      ? res.data.data
+      : res.data.data.filter((note) => note.tag === tag);
+  let pinnedNotes = [],
+    unpinnedNotes = [];
+  notes.forEach((note) => {
+    if (note.isPinned) pinnedNotes = [...pinnedNotes, note];
+    else unpinnedNotes = [...unpinnedNotes, note];
+  });
+  dispatchData({
+    type: "UPDATE_NOTES",
+    payload: { pinned: pinnedNotes, unPinned: unpinnedNotes },
+  });
+};
+export { loginHandler, signUpHandler, getNotes };

@@ -1,6 +1,9 @@
 const colors = {
   primary_color: "rgba(0,0,0,0.8)",
   glass: "rgba(0,0,0,0.5)",
+  secondary_color: "rgb(255,255,0)",
+  light_background_color: "rgba(255,250,0,0.2)",
+  danger_color: "red",
 };
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -10,10 +13,9 @@ module.exports = {
       current: "currentColor",
       primary: colors.primary_color,
       glass: colors.glass,
-      secondary: "rgb(255,255,0)",
-      light_background: "rgba(255,250,0,0.2)",
-      write: "#D81E5B",
-      error: "red",
+      secondary: colors.secondary_color,
+      light_background: colors.light_background_color,
+      error: colors.danger_color,
     },
     extend: {},
   },

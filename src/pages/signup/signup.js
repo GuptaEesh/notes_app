@@ -7,6 +7,10 @@ import { PassChecker } from "./password-checker";
 
 export function SignUpScreen() {
   const initial = {
+    name: "eeskj",
+    email: "eesh@eesh.com",
+    password: "1Gu!qwer",
+    confirmPass: "1Gu!qwer",
     error: false,
     message: "",
     loader: false,
@@ -16,10 +20,10 @@ export function SignUpScreen() {
   const [formFields, setFormFields] = useState(initial);
   const { name, email, password, confirmPass, error, message, loader } =
     formFields;
-  console.log(formFields);
   useEffect(() => {
     isAuthenticated ? navigate("/") : navigate(requests.signup);
   }, [isAuthenticated]);
+  console.log(loader, error, message);
   const inputHandler = (e) =>
     setFormFields({
       ...formFields,
@@ -78,9 +82,9 @@ export function SignUpScreen() {
           />
           <PassChecker pass={password} confirmPass={confirmPass} />
           {error ? (
-            <span className="text-error">{message}!</span>
+            <span className="bg-light_background text-error">{message}</span>
           ) : (
-            <span className=" opacity-0 ">Good to go!</span>
+            <span className=" invisible	">Good to go!</span>
           )}
           <span className="flex flex-col">
             Already a customer?
