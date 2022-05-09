@@ -6,6 +6,7 @@ import { Home, LoginScreen, SignUpScreen, NotesScreen } from "./pages";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const location = useLocation();
   const setModalStatus = () => setIsModalOpen(!isModalOpen);
   const routeCheck =
@@ -13,7 +14,7 @@ function App() {
     location.pathname === "/signin" ||
     location.pathname === "/signup";
   return (
-    <div className="App ">
+    <div className="App">
       {!routeCheck && <SideNav setModalStatus={setModalStatus} />}
       {isModalOpen && <AddNoteModal setModalStatus={setModalStatus} />}
       <Routes>

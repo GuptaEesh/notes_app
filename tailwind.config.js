@@ -4,6 +4,7 @@ const colors = {
   secondary_color: "rgb(255,255,0)",
   light_background_color: "rgba(255,250,0,0.2)",
   danger_color: "red",
+  white: "white",
 };
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -16,6 +17,7 @@ module.exports = {
       secondary: colors.secondary_color,
       light_background: colors.light_background_color,
       error: colors.danger_color,
+      white: colors.white,
     },
     extend: {},
   },

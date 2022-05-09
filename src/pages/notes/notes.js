@@ -15,22 +15,24 @@ const NotesScreen = () => {
       await getNotes(token, dispatchData, tag);
       setLoader(false);
     })();
-  }, [tag]);
+  }, []);
   const { pinnedNotes, unPinnedNotes } = data;
   return loader ? (
-    <div className="flex flex-col w-[calc(100%-30vw)] items-center justify-center">
+    <div className="flex flex-[6] flex-col items-center justify-center">
       <Loader />
       Loading your notes..
     </div>
   ) : (
-    <div className="flex flex-col pl-5">
-      <div className="flex flex-wrap justify-around">
+    <div className="flex flex-[6] flex-col pl-5 gap-8 mt-2">
+      <h1 className="text-xl text-primary font-bold">Pinned Notes</h1>
+      <div className="flex flex-wrap gap-2 justify-around">
         {!pinnedNotes.length > 0
           ? "No pinned Notes as of now"
           : pinnedNotes.map((note) => <NoteCard key={note._id} note={note} />)}
       </div>
 
-      <div className="flex flex-wrap justify-around">
+      <h1 className="text-xl text-primary font-bold">Un-Pinned Notes</h1>
+      <div className="flex flex-wrap gap-2 justify-around">
         {!unPinnedNotes.length > 0
           ? "Please add some notes to start"
           : unPinnedNotes.map((note) => (

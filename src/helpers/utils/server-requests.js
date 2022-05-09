@@ -1,6 +1,19 @@
 import { requests } from "./constants";
 import { axios } from "./index";
 
+const updateNoteRealTime = (data, dispatch) => {
+  let pinnedNotes = [],
+    unpinnedNotes = [];
+  data.forEach((note) => {
+    if (note.isPinned) pinnedNotes = [...pinnedNotes, note];
+    else unpinnedNotes = [...unpinnedNotes, note];
+  });
+  dispatch({
+    type: "UPDATE_NOTES",
+    payload: { pinned: pinnedNotes, unPinned: unpinnedNotes },
+  });
+};
+
 const loginHandler = async (e, setFormFields, login, formFields) => {
   const { email, password } = formFields;
   e.preventDefault();
@@ -53,22 +66,6 @@ const signUpHandler = async (e, setFormFields, login, formFields) => {
 };
 
 const getNotes = async (token, dispatchData, tag) => {
-  // const res = await axios.post(
-  //   "/api/note",
-  //   {
-  //     title: "Note1",
-  //     description: "ASDASd",
-  //     styles: "SDFsdf",
-  //     isEdit: false,
-  //     isPinned: false,
-  //     tag: "Hidf",
-  //   },
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }
-  // );
   const res = await axios.get(`/api/note`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -79,15 +76,32 @@ const getNotes = async (token, dispatchData, tag) => {
     tag === "all"
       ? res.data.data
       : res.data.data.filter((note) => note.tag === tag);
-  let pinnedNotes = [],
-    unpinnedNotes = [];
-  notes.forEach((note) => {
-    if (note.isPinned) pinnedNotes = [...pinnedNotes, note];
-    else unpinnedNotes = [...unpinnedNotes, note];
-  });
-  dispatchData({
-    type: "UPDATE_NOTES",
-    payload: { pinned: pinnedNotes, unPinned: unpinnedNotes },
-  });
+  updateNoteRealTime(notes, dispatchData);
 };
-export { loginHandler, signUpHandler, getNotes };
+const addNote = async (token, note, dispatchData) => {
+  console.log(note);
+  const response = await axios.post(
+    "/api/note",
+    { ...note, styles: JSON.stringify(note.styles) },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  updateNoteRealTime(response.data.data, dispatchData);
+};
+const updateNote = async (note, token, dispatchData) => {
+  const response = await axios.put(
+    `/api/note/${note._id}`,
+    { ...note, isPinned: !note.isPinned },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  updateNoteRealTime(response.data.data, dispatchData);
+};
+
+export { loginHandler, signUpHandler, getNotes, addNote, updateNote };
