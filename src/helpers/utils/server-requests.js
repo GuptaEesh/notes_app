@@ -78,8 +78,8 @@ const getNotes = async (token, dispatchData, tag) => {
       : res.data.data.filter((note) => note.tag === tag);
   updateNoteRealTime(notes, dispatchData);
 };
-const addNote = async (token, note, dispatchData) => {
-  console.log(note);
+const addNote = async (token, note, dispatchData, setLoader) => {
+  setLoader(true);
   const response = await axios.post(
     "/api/note",
     { ...note, styles: JSON.stringify(note.styles) },
@@ -90,8 +90,10 @@ const addNote = async (token, note, dispatchData) => {
     }
   );
   updateNoteRealTime(response.data.data, dispatchData);
+  setLoader(false);
 };
-const updateNote = async (note, token, dispatchData) => {
+const handleNotePin = async (note, token, dispatchData, setSmallLoader) => {
+  setSmallLoader(true);
   const response = await axios.put(
     `/api/note/${note._id}`,
     { ...note, isPinned: !note.isPinned },
@@ -102,6 +104,40 @@ const updateNote = async (note, token, dispatchData) => {
     }
   );
   updateNoteRealTime(response.data.data, dispatchData);
+  setSmallLoader(false);
+};
+const deleteNote = async (note, token, dispatchData, setSmallLoader) => {
+  setSmallLoader(true);
+  const response = await axios.delete(`/api/note/${note._id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  updateNoteRealTime(response.data.data, dispatchData);
+  setSmallLoader(false);
 };
 
-export { loginHandler, signUpHandler, getNotes, addNote, updateNote };
+const updateNote = async (token, note, dispatchData, setLoader) => {
+  setLoader(true);
+  const response = await axios.put(
+    `/api/note/${note._id}`,
+    { ...note, styles: JSON.stringify(note.styles) },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  setLoader(false);
+  updateNoteRealTime(response.data.data, dispatchData);
+};
+
+export {
+  loginHandler,
+  signUpHandler,
+  getNotes,
+  addNote,
+  handleNotePin,
+  updateNote,
+  deleteNote,
+};

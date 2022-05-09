@@ -1,22 +1,26 @@
-import { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
-import { AddNoteModal, SideNav } from "./components";
+import { AddNoteModal, Loader, SideNav } from "./components";
+import { useData } from "./helpers/context";
 import { Home, LoginScreen, SignUpScreen, NotesScreen } from "./pages";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { loader, isModalOpen } = useData();
   const location = useLocation();
-  const setModalStatus = () => setIsModalOpen(!isModalOpen);
+
   const routeCheck =
     location.pathname === "/" ||
     location.pathname === "/signin" ||
     location.pathname === "/signup";
   return (
-    <div className="App">
-      {!routeCheck && <SideNav setModalStatus={setModalStatus} />}
-      {isModalOpen && <AddNoteModal setModalStatus={setModalStatus} />}
+    <div className="App flex">
+      {!routeCheck && <SideNav />}
+      {isModalOpen && <AddNoteModal />}
+      {loader && (
+        <div className="flex flex-[4] flex-col pl-6 gap-8 items-center justify-center">
+          <Loader />
+        </div>
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<LoginScreen />} />

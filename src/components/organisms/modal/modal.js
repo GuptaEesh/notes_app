@@ -2,11 +2,13 @@ import { Button } from "../../atomic/button/button";
 import { Input } from "../../atomic/input";
 import { BsFillPinFill, BsPin, BsTypeBold, BsTypeItalic } from "react-icons/bs";
 import { useAuth, useData } from "../../../helpers/context";
-import { addNote } from "../../../helpers/utils";
-const AddNoteModal = ({ setModalStatus }) => {
+import { addNote, updateNote } from "../../../helpers/utils";
+const AddNoteModal = () => {
   const {
     data: { singleNote },
     dispatchData,
+    setLoader,
+    setModalStatus,
   } = useData();
   const { token } = useAuth();
   const closeModal = () => {
@@ -24,8 +26,11 @@ const AddNoteModal = ({ setModalStatus }) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    addNote(token, singleNote, dispatchData);
+    singleNote.isEdit
+      ? updateNote(token, singleNote, dispatchData, setLoader)
+      : addNote(token, singleNote, dispatchData, setLoader);
     dispatchData({ type: "RESET_NOTE" });
+
     setModalStatus();
   };
   const boldFontHandler = () => dispatchData({ type: "TEXT_TO_BOLD" });
@@ -33,7 +38,7 @@ const AddNoteModal = ({ setModalStatus }) => {
   const italicFontHandler = () => dispatchData({ type: "TEXT_TO_ITALIC" });
 
   const bgColorsArray = ["#E0FFFF", "#87CEFA", "#DDA0DD", "#C0C0C0", "#90EE90"];
-  console.log(singleNote);
+
   return (
     <div className=" z-10 fixed backdrop-blur-[5px] h-screen w-screen bg-light_background flex items-center justify-center">
       <form
@@ -117,7 +122,7 @@ const AddNoteModal = ({ setModalStatus }) => {
           <Input
             inputType="submit"
             inputClass="font-bold px-2 rounded p-1 bg-primary text-secondary"
-            inputValue="Add Note"
+            inputValue={singleNote.isEdit ? "Update Note" : "Add Note"}
           />
           <Button
             btnType="font-bold px-2 rounded p-1 bg-primary text-secondary"
