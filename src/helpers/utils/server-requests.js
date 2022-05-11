@@ -71,12 +71,7 @@ const getNotes = async (token, dispatchData, tag) => {
       Authorization: `Bearer ${token}`,
     },
   });
-
-  const notes =
-    tag === "all"
-      ? res.data.data
-      : res.data.data.filter((note) => note.tag === tag);
-  updateNoteRealTime(notes, dispatchData);
+  updateNoteRealTime(res.data.data, dispatchData);
 };
 const addNote = async (token, note, dispatchData, setLoader) => {
   setLoader(true);

@@ -18,8 +18,10 @@ const AddNoteModal = () => {
   const handlePin = () => {
     dispatchData({ type: "IS_PINNED" });
   };
-  const inputHandler = (e) =>
+  const inputHandler = (e) => {
+    console.log(e.target.focus());
     dispatchData({ type: "FORM_DETAILS", payload: e });
+  };
 
   const handleSelectedColor = (e) => {
     dispatchData({ type: "UPDATE_COLOR", payload: e });
