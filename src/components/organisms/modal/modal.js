@@ -1,9 +1,22 @@
 import { Button } from "../../atomic/button/button";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "./modal.css";
 import { Input } from "../../atomic/input";
-import { BsFillPinFill, BsPin, BsTypeBold, BsTypeItalic } from "react-icons/bs";
+import { BsFillPinFill, BsPin } from "react-icons/bs";
 import { useAuth, useData } from "../../../helpers/context";
 import { addNote, updateNote } from "../../../helpers/utils";
+
 const AddNoteModal = () => {
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike"],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      ["clean"],
+    ],
+  };
   const {
     data: { singleNote },
     dispatchData,
@@ -19,7 +32,6 @@ const AddNoteModal = () => {
     dispatchData({ type: "IS_PINNED" });
   };
   const inputHandler = (e) => {
-    console.log(e.target.focus());
     dispatchData({ type: "FORM_DETAILS", payload: e });
   };
 
@@ -35,17 +47,20 @@ const AddNoteModal = () => {
 
     setModalStatus();
   };
-  const boldFontHandler = () => dispatchData({ type: "TEXT_TO_BOLD" });
 
-  const italicFontHandler = () => dispatchData({ type: "TEXT_TO_ITALIC" });
-
+  const quillHandler = (e) => {
+    dispatchData({
+      type: "ADD_DESCRIPTION",
+      payload: e,
+    });
+  };
   const bgColorsArray = ["#E0FFFF", "#87CEFA", "#DDA0DD", "#C0C0C0", "#90EE90"];
 
   return (
     <div className=" z-10 fixed backdrop-blur-[5px] h-screen w-screen bg-light_background flex items-center justify-center">
       <form
         onSubmit={submitHandler}
-        className=" min-w-[20rem] w-[50%] bg-glass p-2  h-[50vh] flex flex-col gap-4"
+        className=" min-w-[20rem] w-[50%] bg-glass p-2  lg:h-[50vh] md:h-[50vh] h-[70vh] flex flex-col gap-4"
       >
         <Input
           inputType="text"
@@ -63,14 +78,20 @@ const AddNoteModal = () => {
           inputFunc={inputHandler}
           inputPlaceHolder="tag..."
         />
-        <textarea
+        <ReactQuill
+          modules={modules}
+          placeholder="description..."
+          value={singleNote.description}
+          onChange={quillHandler}
+        />
+        {/* <textarea
           className="p-1 rounded w-full h-[60%]"
           placeholder="Description .... "
           name="description"
           onChange={inputHandler}
           value={singleNote.description}
           required
-        ></textarea>
+        ></textarea> */}
         <section className="flex justify-between items-center p-2">
           <div
             className="flex gap-2 items-center p-2"
@@ -82,30 +103,12 @@ const AddNoteModal = () => {
                 data-key={color}
                 style={{ backgroundColor: color }}
                 className={`${
-                  singleNote.styles?.color === color &&
-                  "border-primary border-2"
+                  singleNote.bgColor === color && "border-primary border-2"
                 } cursor-grab rounded-full w-5 h-5 `}
               ></div>
             ))}
           </div>
-          <section className="flex items-center gap-2">
-            <BsTypeBold
-              onClick={boldFontHandler}
-              className={`${
-                !singleNote.styles?.bold
-                  ? "bg-white text-primary"
-                  : "bg-primary text-white"
-              }  cursor-pointer rounded-full p-1 text-3xl`}
-            />
-            <BsTypeItalic
-              onClick={italicFontHandler}
-              className={`${
-                !singleNote.styles?.italic
-                  ? "bg-white text-primary"
-                  : "bg-primary text-white"
-              } cursor-pointer rounded-full p-1 text-3xl`}
-            />
-          </section>
+
           <div className=" p-2">
             {singleNote.isPinned ? (
               <BsFillPinFill

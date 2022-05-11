@@ -16,6 +16,7 @@ const updateNoteRealTime = (data, dispatch) => {
 
 const loginHandler = async (e, setFormFields, login, formFields) => {
   const { email, password } = formFields;
+
   e.preventDefault();
   try {
     setFormFields({ ...formFields, loader: true });
@@ -48,6 +49,7 @@ const signUpHandler = async (e, setFormFields, login, formFields) => {
       loader: true,
     });
     const { data } = await axios.post(requests.signup, {
+      name,
       email,
       password,
     });

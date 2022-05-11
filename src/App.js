@@ -2,6 +2,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import { AddNoteModal, Loader, SideNav } from "./components";
 import { useData } from "./helpers/context";
+import { RequireAuth } from "./helpers/router/requires-auth";
 import { Home, LoginScreen, SignUpScreen, NotesScreen } from "./pages";
 
 function App() {
@@ -25,7 +26,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<LoginScreen />} />
         <Route path="/signup" element={<SignUpScreen />} />
-        <Route path="/notes/:tag" element={<NotesScreen />} />
+        <Route
+          path="/notes/:tag"
+          element={
+            <RequireAuth>
+              <NotesScreen />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </div>
   );

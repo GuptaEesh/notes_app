@@ -7,10 +7,10 @@ import { PassChecker } from "./password-checker";
 
 export function SignUpScreen() {
   const initial = {
-    name: "eeskj",
-    email: "eesh@eesh.com",
-    password: "1Gu!qwer",
-    confirmPass: "1Gu!qwer",
+    name: "",
+    email: "",
+    password: "",
+    confirmPass: "",
     error: false,
     message: "",
     loader: false,
@@ -23,7 +23,6 @@ export function SignUpScreen() {
   useEffect(() => {
     isAuthenticated ? navigate("/") : navigate(requests.signup);
   }, [isAuthenticated]);
-  console.log(loader, error, message);
   const inputHandler = (e) =>
     setFormFields({
       ...formFields,
@@ -31,6 +30,7 @@ export function SignUpScreen() {
     });
   const submitHandler = (e) =>
     signUpHandler(e, setFormFields, login, formFields);
+
   return (
     <div className="flex bg-light_background h-screen w-screen items-center justify-center ">
       {loader ? (

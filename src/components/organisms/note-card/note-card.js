@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth, useData } from "../../../helpers/context";
 import { BsFillPinFill, BsPin } from "react-icons/bs";
 import { MdDelete, MdEditNote } from "react-icons/md";
 import { handleNotePin, deleteNote } from "../../../helpers/utils";
 import { SmallLoader } from "../../atomic/loader/small-loader";
-
 const NoteCard = ({ note }) => {
-  const { title, description: desc, isPinned, tag, styles } = note;
   const [pinLoader, setPinLoader] = useState(false);
   const [deleteLoader, setDeleteLoader] = useState(false);
   const { token } = useAuth();
   const { dispatchData, setModalStatus } = useData();
+  const descriptionRef = useRef();
+  const { title, description: desc, isPinned, tag, bgColor: color } = note;
+  useEffect(() => {
+    descriptionRef.current.innerHTML = desc;
+  }, [desc]);
   const handlePin = () => {
     handleNotePin(note, token, dispatchData, setPinLoader);
   };
@@ -21,8 +24,7 @@ const NoteCard = ({ note }) => {
     dispatchData({ type: "EDIT_NOTE_FORM", payload: note });
     setModalStatus();
   };
-  const stylesApplied = JSON.parse(styles);
-  const { color, bold, italic } = stylesApplied;
+
   return (
     <div
       style={{ backgroundColor: `${color}` }}
@@ -36,13 +38,8 @@ const NoteCard = ({ note }) => {
           {tag}
         </h2>
       </section>
-      <p
-        className={`  font-${bold && "bold"} ${
-          italic && "italic"
-        } px-2 h-full break-words text-ellipsis overflow-hidden`}
-      >
-        {desc}
-      </p>
+      <section ref={descriptionRef}></section>
+
       <section className="bg-glass rounded flex flex-col items-center gap-2 absolute p-1 right-2  top-1/3">
         <div className=" bg-secondary cursor-pointer rounded-full ">
           {pinLoader ? (

@@ -8,6 +8,7 @@ export const Input = ({
   inputPlaceHolder,
   inputType,
   inputValue,
+  selectFunc,
 }) => {
   return (
     <input
@@ -17,6 +18,7 @@ export const Input = ({
       value={inputValue}
       name={inputName}
       onChange={inputFunc}
+      onSelect={selectFunc}
       className={inputClass}
       placeholder={inputPlaceHolder}
       required

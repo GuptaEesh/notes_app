@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const initialData = {
     token: localStorage.getItem("token"),
-    user: null,
+    user: localStorage.getItem("user"),
   };
   const [authToken, setAuthToken] = useState(initialData);
   const navigate = useNavigate();
@@ -14,7 +14,8 @@ const AuthProvider = ({ children }) => {
   const isAuthenticated = authToken.token ? true : false;
   const login = (data) => {
     localStorage.setItem("token", data.token);
-    setAuthToken({ token: data.token });
+    localStorage.setItem("user", data.loggedUser);
+    setAuthToken({ token: data.token, user: data.loggedUser });
   };
 
   const logout = () => {
@@ -29,6 +30,7 @@ const AuthProvider = ({ children }) => {
         logout,
         isAuthenticated,
         token: authToken.token,
+        user: authToken.user,
       }}
     >
       {children}
