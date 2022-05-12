@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
+import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { useAuth, useData } from "../../../helpers/context";
 import { Button } from "../../index";
 import "./side-nav.css";
-const SideNav = () => {
+const SideNav = ({ darkMode, changeTheme }) => {
   const {
     setModalStatus,
     data: { pinnedNotes, unPinnedNotes },
@@ -24,18 +25,23 @@ const SideNav = () => {
     )
   );
 
-  const activeClass = ({ isActive }) =>
-    isActive ? "bg-glass text-secondary font-bold" : "";
+  const activeClass = ({ isActive }) => (isActive ? "bg-glass font-bold" : "");
   return (
     <div className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 top-0 left-0 sticky h-[100vh]">
-      <h1 className="text-3xl mb-[5rem] mt-[2rem]">Attr🔷ct</h1>
-
+      <section className="flex items-center mb-[5rem] mt-[2rem] justify-between">
+        <h1 className="text-3xl text-primary">Attr🔷ct</h1>
+        {darkMode ? (
+          <BsFillSunFill onClick={changeTheme} />
+        ) : (
+          <BsFillMoonFill onClick={changeTheme} />
+        )}
+      </section>
       <Button
         btnType="font-bold rounded p-1 mb-5 bg-primary text-secondary"
         btnText="Add Note +"
         btnFunc={setModalStatus}
       />
-      <section className="flex flex-col gap-4 border-b-2 mb-2 side-nav overflow-y-auto pb-5 h-full">
+      <section className="flex flex-col gap-4 border-b-2 mb-2 text-primary side-nav overflow-y-auto pb-5 h-full">
         <NavLink className={activeClass} to={`/notes/${"all"}`}>
           All Notes
         </NavLink>
@@ -47,7 +53,7 @@ const SideNav = () => {
       </section>
       <div className=" mb-5 self-start w-max rounded p-1 gap-2 bg-primary text-secondary flex items-center justify-center">
         <Button btnType="font-bold" btnText=" Log Out" btnFunc={logout} />
-        <AiOutlineLogout className="font-bold text-3xl" />
+        <AiOutlineLogout className="bg-secondary rounded-sm text-3xl" />
       </div>
     </div>
   );

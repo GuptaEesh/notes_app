@@ -57,7 +57,7 @@ const AddNoteModal = () => {
   const bgColorsArray = ["#E0FFFF", "#87CEFA", "#DDA0DD", "#C0C0C0", "#90EE90"];
 
   return (
-    <div className=" z-10 fixed backdrop-blur-[5px] h-screen w-screen bg-light_background flex items-center justify-center">
+    <div className=" z-10 fixed backdrop-blur-[10px] h-screen w-screen bg-glass flex items-center justify-center">
       <form
         onSubmit={submitHandler}
         className=" min-w-[20rem] w-[50%] bg-glass p-2  lg:h-[50vh] md:h-[50vh] h-[70vh] flex flex-col gap-4"
@@ -84,14 +84,6 @@ const AddNoteModal = () => {
           value={singleNote.description}
           onChange={quillHandler}
         />
-        {/* <textarea
-          className="p-1 rounded w-full h-[60%]"
-          placeholder="Description .... "
-          name="description"
-          onChange={inputHandler}
-          value={singleNote.description}
-          required
-        ></textarea> */}
         <section className="flex justify-between items-center p-2">
           <div
             className="flex gap-2 items-center p-2"
