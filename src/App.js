@@ -9,14 +9,14 @@ import { Home, LoginScreen, SignUpScreen, NotesScreen } from "./pages";
 function App() {
   const { loader, isModalOpen } = useData();
   const [darkMode, setDarkMode] = useState(() =>
-    localStorage.getItem("darkTheme")
+    JSON.parse(localStorage.getItem("darkTheme"))
   );
   const location = useLocation();
   useEffect(() => {
     localStorage.setItem("darkTheme", darkMode);
   }, [darkMode]);
   const changeTheme = () => {
-    setDarkMode(!darkMode);
+    setDarkMode((mode) => !mode);
   };
   const routeCheck =
     location.pathname === "/" ||
