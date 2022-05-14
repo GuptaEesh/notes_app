@@ -1,5 +1,5 @@
 export const requests = {
   login: "/signin",
   signup: "/signup",
-  notes: "/notes",
+  notes: "/notes/all",
 };

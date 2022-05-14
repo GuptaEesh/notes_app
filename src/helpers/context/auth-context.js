@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
 
   const isAuthenticated = authToken.token ? true : false;
   const login = (data) => {
-    localStorage.setItem("token", JSON.stringify(data.token));
+    localStorage.setItem("token", data.token);
     setAuthToken({ token: data.token });
   };
 

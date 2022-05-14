@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button, InputPass, InputSimple, Loader } from "../../components";
+import {
+  Button,
+  Input,
+  InputPass,
+  InputSimple,
+  Loader,
+} from "../../components";
 import { useAuth } from "../../helpers/context";
 import { loginHandler, requests } from "../../helpers/utils";
 export function LoginScreen() {
@@ -79,10 +85,10 @@ export function LoginScreen() {
               </span>
             </Link>
           </span>
-
-          <Button
-            btnType="rounded p-1 bg-primary text-secondary font-bold"
-            btnText="Login"
+          <Input
+            inputType="submit"
+            inputClass="rounded p-1 bg-primary text-secondary font-bold"
+            inputValue="Login"
           />
         </form>
       )}
