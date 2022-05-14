@@ -12,11 +12,3 @@ export { Filter } from "./organisms/filter/filter";
 export { NoteCard } from "./organisms/note-card/note-card";
 export { AddNoteModal } from "./organisms/modal/modal";
 export { SideNav } from "./organisms/nav/side-nav";
-// export {
-//     resetFilters,
-//     priceSliderHandler,
-//     highToLowHandler,
-//     lowToHighHandler,
-//     outOfStockHandler,
-//     fastDeliveryHandler,
-// } from "./organisms/filter/filter-controller";
