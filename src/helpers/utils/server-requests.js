@@ -104,6 +104,48 @@ const handleNotePin = async (note, token, dispatchData, setSmallLoader) => {
   updateNoteRealTime(response.data.data, dispatchData);
   setSmallLoader(false);
 };
+const handleNoteArchive = async (note, token, dispatchData, setSmallLoader) => {
+  setSmallLoader(true);
+  const response = await axios.put(
+    `/api/note/${note._id}`,
+    {
+      ...note,
+      isArchived: !note.isArchived,
+      isTemporarilyDeleted: false,
+      isPinned: false,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  updateNoteRealTime(response.data.data, dispatchData);
+  setSmallLoader(false);
+};
+const handleNoteTemporaryDeletion = async (
+  note,
+  token,
+  dispatchData,
+  setSmallLoader
+) => {
+  setSmallLoader(true);
+  const response = await axios.put(
+    `/api/note/${note._id}`,
+    {
+      ...note,
+      isTemporarilyDeleted: !note.isTemporarilyDeleted,
+      isPinned: false,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  updateNoteRealTime(response.data.data, dispatchData);
+  setSmallLoader(false);
+};
 const deleteNote = async (note, token, dispatchData, setSmallLoader) => {
   setSmallLoader(true);
   const response = await axios.delete(`/api/note/${note._id}`, {
@@ -136,6 +178,8 @@ export {
   getNotes,
   addNote,
   handleNotePin,
+  handleNoteArchive,
+  handleNoteTemporaryDeletion,
   updateNote,
   deleteNote,
 };

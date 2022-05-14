@@ -8,6 +8,8 @@ const initialData = {
     isEdit: false,
     tag: "",
     priority: 1,
+    isArchived: false,
+    isTemporarilyDeleted: false,
     bgColor: "white",
   },
   pinnedNotes: [],
@@ -33,6 +35,22 @@ const dataReducer = (data, action) => {
         singleNote: {
           ...data.singleNote,
           isPinned: !data.singleNote.isPinned,
+        },
+      };
+    case ACTION_TYPES.IS_ARCHIVED:
+      return {
+        ...data,
+        singleNote: {
+          ...data.singleNote,
+          isArchived: !data.singleNote.isArchived,
+        },
+      };
+    case ACTION_TYPES.IS_TEMPORARILY_DELETED:
+      return {
+        ...data,
+        singleNote: {
+          ...data.singleNote,
+          isTemporarilyDeleted: !data.singleNote.isTemporarilyDeleted,
         },
       };
     case ACTION_TYPES.ADD_DESC:
