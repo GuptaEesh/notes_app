@@ -22,7 +22,7 @@ const DataProvider = ({ children }) => {
       await getNotes(token, dispatchData);
       setLoader(false);
     })();
-  }, []);
+  }, [token]);
   return (
     <DataContext.Provider
       value={{
