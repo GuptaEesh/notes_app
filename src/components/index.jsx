@@ -3,7 +3,6 @@ export { Loader } from "./atomic/loader/loader";
 export { SmallLoader } from "./atomic/loader/small-loader";
 export { Button } from "./atomic/button/button";
 
-export { CheckBox } from "./molecules/checkbox-button";
 export { Radio } from "./molecules/radio-button";
 export { InputPass } from "./molecules/inputbox/input-password";
 export { InputSimple } from "./molecules/inputbox/input-simple";
