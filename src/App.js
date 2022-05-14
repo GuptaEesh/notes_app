@@ -35,7 +35,7 @@ function App() {
     <div className={`${darkMode ? "dark" : "App"} flex`}>
       {!routeCheck && <SideNav darkMode={darkMode} changeTheme={changeTheme} />}
       {isModalOpen && <AddNoteModal />}
-      {loader && <Loader />}
+      {loader && !routeCheck && <Loader />}
       <Routes>
         <Route path={requests.home} element={<Home />} />
         <Route element={<RedirectAuth />}>
