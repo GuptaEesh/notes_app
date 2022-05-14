@@ -6,7 +6,7 @@ import {
   BiArchive,
   BiTrash,
   AiOutlineLogout,
-} from "../../../helpers/icons/icons-used";
+} from "../../../icons-used";
 import { useAuth, useData } from "../../../helpers/context";
 import { Button } from "../../index";
 import "./side-nav.css";

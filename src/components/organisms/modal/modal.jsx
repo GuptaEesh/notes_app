@@ -8,7 +8,7 @@ import {
   BsPin,
   BsArchive,
   BsArchiveFill,
-} from "../../../helpers/icons/icons-used";
+} from "../../../icons-used";
 import { useAuth, useData } from "../../../helpers/context";
 import { addNote, updateNote } from "../../../helpers/utils";
 import { ACTION_TYPES } from "../../../helpers/utils/constants";

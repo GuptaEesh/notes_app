@@ -8,7 +8,7 @@ import {
   MdDelete,
   MdEditNote,
   MdDeleteForever,
-} from "../../../helpers/icons/icons-used";
+} from "../../../icons-used";
 import {
   handleNotePin,
   deleteNote,
