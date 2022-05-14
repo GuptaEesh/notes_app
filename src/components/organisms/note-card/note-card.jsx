@@ -32,6 +32,7 @@ const NoteCard = ({ note }) => {
     bgColor: color,
     isArchived,
     isTemporarilyDeleted,
+    priority
   } = note;
   useEffect(() => {
     descriptionRef.current.innerHTML = desc;
@@ -55,7 +56,7 @@ const NoteCard = ({ note }) => {
   return (
     <div
       style={{ backgroundColor: `${color}` }}
-      className="p-2 shadow-[0_0_5px_0_var(--color-primary)] rounded-md flex flex-col w-full h-[12rem] relative"
+      className={`${priority===3?" opacity-50 ":priority===2?"opacity-80":""} p-2 shadow-[0_0_5px_0_var(--color-primary)] rounded-md flex flex-col w-full h-[12rem] relative`}
     >
       <section className="border-b-2 py-0.5 mb-1 flex justify-between ">
         <h1 className="text-ellipsis overflow-hidden whitespace-nowrap w-[100px] mr-3 font-bold">

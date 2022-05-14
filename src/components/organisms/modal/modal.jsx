@@ -156,7 +156,7 @@ const AddNoteModal = () => {
         </section>
 
         <label className="font-bold">
-          Priority:
+          <span className="text-heading"> Priority: </span>
           <select
             value={singleNote.priority}
             onChange={priorityHandler}
