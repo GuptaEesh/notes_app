@@ -8,3 +8,6 @@
     transition: gap 0.4s ease-in-out;
     border-radius: 10px;
 }
+.nav-icon2{
+    transition: margin 0.4s ease-in-out;
+}

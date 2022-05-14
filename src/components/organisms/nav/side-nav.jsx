@@ -31,7 +31,7 @@ const SideNav = ({ darkMode, changeTheme }) => {
     )
   );
 
-  const activeClass = ({ isActive }) => (isActive ? "bg-glass font-bold" : "");
+  const activeClass = ({ isActive }) => (isActive ? "bg-glass font-bold ml-2 nav-icon2" : "");
   const activeClass2 = ({ isActive }) =>
     isActive
       ? "bg-glass gap-4 p-2 font-bold flex items-center nav-icon m-2"
