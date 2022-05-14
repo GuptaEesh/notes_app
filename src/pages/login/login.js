@@ -22,12 +22,14 @@ export function LoginScreen() {
   }, [isAuthenticated]);
   const { email, password, error, loader } = formFields;
 
-  const guestLogin = () =>
+  const guestLogin = (e) => {
+    e.preventDefault();
     setFormFields({
       ...formFields,
       email: "eesh@eesh.com",
       password: "1Gu!qwer",
     });
+  };
   const inputHandler = (e) =>
     setFormFields({
       ...formFields,
@@ -52,7 +54,7 @@ export function LoginScreen() {
             inputType="email"
             inputName="email"
             inputClass="p-1 w-full"
-            inputValue={email}
+            inputValue={email ?? ""}
             inputFunc={inputHandler}
             inputPlaceHolder="email..."
           />
@@ -61,7 +63,7 @@ export function LoginScreen() {
             inputType="password"
             inputName="password"
             inputClass="p-1 w-full "
-            inputValue={password}
+            inputValue={password ?? ""}
             inputFunc={inputHandler}
             inputPlaceHolder="password..."
           />
@@ -74,7 +76,7 @@ export function LoginScreen() {
           )}
           <Button
             btnType="font-bold rounded p-1 bg-primary text-secondary"
-            btnText="Guest Login"
+            btnText="Fill-in test credentials"
             btnFunc={guestLogin}
           />
           <span className="flex flex-col">

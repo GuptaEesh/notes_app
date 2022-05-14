@@ -10,7 +10,7 @@ const DataProvider = ({ children }) => {
       isPinned: false,
       isEdit: false,
       tag: "",
-      styles: {},
+      bgColor: "white",
     },
     pinnedNotes: [],
     unPinnedNotes: [],
@@ -37,6 +37,14 @@ const DataProvider = ({ children }) => {
             isPinned: !data.singleNote.isPinned,
           },
         };
+      case "ADD_DESCRIPTION":
+        return {
+          ...data,
+          singleNote: {
+            ...data.singleNote,
+            description: payload,
+          },
+        };
       case "FORM_DETAILS":
         return {
           ...data,
@@ -50,7 +58,7 @@ const DataProvider = ({ children }) => {
           ...data,
           singleNote: {
             ...payload,
-            styles: JSON.parse(payload.styles),
+            color: payload.color,
             isEdit: true,
           },
         };
@@ -59,32 +67,7 @@ const DataProvider = ({ children }) => {
           ...data,
           singleNote: {
             ...data.singleNote,
-            styles: {
-              ...data.singleNote.styles,
-              color: payload.target.dataset.key,
-            },
-          },
-        };
-      case "TEXT_TO_BOLD":
-        return {
-          ...data,
-          singleNote: {
-            ...data.singleNote,
-            styles: {
-              ...data.singleNote.styles,
-              bold: !data.singleNote.styles.bold,
-            },
-          },
-        };
-      case "TEXT_TO_ITALIC":
-        return {
-          ...data,
-          singleNote: {
-            ...data.singleNote,
-            styles: {
-              ...data.singleNote.styles,
-              italic: !data.singleNote.styles.italic,
-            },
+            bgColor: payload.target.dataset.key,
           },
         };
 

@@ -8,10 +8,10 @@ const NotesScreen = () => {
   let { tag } = useParams();
   const { token } = useAuth();
   const { data, dispatchData, setLoader, loader } = useData();
-  const { pinnedNotes, unPinnedNotes } = data;
   const [pinned, setPinned] = useState([]);
   const [unPinned, setUnPinned] = useState([]);
   const navigate = useNavigate();
+  const { pinnedNotes, unPinnedNotes } = data;
   useEffect(() => {
     (async () => {
       setLoader(true);
@@ -46,9 +46,8 @@ const NotesScreen = () => {
 
   return (
     !loader && (
-      <div className="flex flex-[4] flex-col pt-2 px-5 gap-8">
+      <div className="flex flex-[4] flex-col pt-2 px-5 gap-8 mb-2">
         <h2 className="text-center font-bold text-2xl">
-          {" "}
           Tag :- {tag[0].toUpperCase() + tag.slice(1, tag.length)}
         </h2>
         <h1 className="text-xl text-primary font-bold">Pinned Notes</h1>
