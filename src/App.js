@@ -32,7 +32,7 @@ function App() {
     location.pathname === "/signin" ||
     location.pathname === "/signup";
   return (
-    <div className={`${darkMode ? "dark" : "App"} flex`}>
+    <div className={`${darkMode ? "dark" : "App"} flex `}>
       {!routeCheck && <SideNav darkMode={darkMode} changeTheme={changeTheme} />}
       {isModalOpen && <AddNoteModal />}
       {loader && !routeCheck && <Loader />}

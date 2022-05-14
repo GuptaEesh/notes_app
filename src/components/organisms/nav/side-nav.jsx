@@ -34,10 +34,10 @@ const SideNav = ({ darkMode, changeTheme }) => {
   const activeClass = ({ isActive }) => (isActive ? "bg-glass font-bold ml-2 nav-icon2" : "");
   const activeClass2 = ({ isActive }) =>
     isActive
-      ? "bg-glass gap-4 p-2 font-bold flex items-center nav-icon m-2"
-      : "flex items-center p-2 gap-1 m-2";
+      ? "bg-glass gap-4 p-2 font-bold flex my-2 items-center nav-icon"
+      : "flex items-center p-2 gap-1 my-2";
   return (
-    <div className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 top-0 left-0 sticky h-[100vh] min-w-[12rem]">
+    <div className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 top-0 left-0 sticky h-[100vh] min-w-[12rem] ">
       <section className="flex items-center mb-[5rem] mt-[2rem] justify-between">
         <h1 className="text-3xl text-primary">Attr🔷ct</h1>
         {darkMode ? (

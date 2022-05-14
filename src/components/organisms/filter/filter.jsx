@@ -29,6 +29,7 @@ export function Filter() {
             </FilterHolder>
             <FilterHolder legendName="Priority Sort">
                 {priorityArray.map(({title,priority})=><Radio
+                    key={title}
                     radioName="priority"
                     radioText={title}
                     checkStatus={filters.priority === priority}
