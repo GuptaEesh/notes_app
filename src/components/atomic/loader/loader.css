@@ -1,0 +1,42 @@
+.loader {
+    border: 20px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2.5s ease-in-out infinite;
+}
+.small-loader{
+    border: 4px solid white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spinner 2.5s ease-in-out infinite;
+}
+@keyframes spin {
+    25% {
+        border-top: 20px solid rgb(255, 255, 24);
+    }
+
+    75% {
+        border-bottom: 20px solid rgb(255, 255, 33);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+}
+@keyframes spinner {
+    25% {
+        border-top: 4px solid yellow;
+    }
+
+    75% {
+        border-bottom: 4px solid yellow;
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+}
