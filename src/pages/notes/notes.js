@@ -1,55 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { NoteCard } from "../../components";
-import { useAuth, useData } from "../../helpers/context";
-import { getNotes } from "../../helpers/utils";
+import { Filter, NoteCard } from "../../components";
+import { useData, useFilter } from "../../helpers/context";
+import { requests } from "../../helpers/utils";
 
 const NotesScreen = () => {
   let { tag } = useParams();
-  const { token } = useAuth();
-  const { data, dispatchData, setLoader, loader } = useData();
-  const [pinned, setPinned] = useState([]);
-  const [unPinned, setUnPinned] = useState([]);
+  const { finalArray } = useFilter();
+  const { loader } = useData();
+  const [notes, setNotes] = useState([]);
   const navigate = useNavigate();
-  const { pinnedNotes, unPinnedNotes } = data;
-  useEffect(() => {
-    (async () => {
-      setLoader(true);
-      await getNotes(token, dispatchData, tag);
-      setLoader(false);
-    })();
-  }, []);
+  const pinned = notes.filter((note) => note.isPinned);
+  const unPinned = notes.filter((note) => !note.isPinned);
   useEffect(() => {
     if (
-      ![...pinnedNotes, ...unPinnedNotes].some((note) => note.tag === tag) &&
+      !finalArray.some(
+        (note) => note.tag.toLowerCase() === tag.toLowerCase()
+      ) &&
       tag !== "all"
     ) {
-      navigate("/notes/all");
+      navigate(requests.notes);
     } else {
       if (tag !== "all") {
-        setPinned(
-          pinnedNotes.filter(
-            (note) => note.tag.toLowerCase() === tag.toLowerCase()
-          )
-        );
-        setUnPinned(
-          unPinnedNotes.filter(
+        setNotes(
+          finalArray.filter(
             (note) => note.tag.toLowerCase() === tag.toLowerCase()
           )
         );
       } else {
-        setPinned(pinnedNotes);
-        setUnPinned(unPinnedNotes);
+        setNotes(finalArray);
       }
     }
-  }, [tag, pinnedNotes, unPinnedNotes]);
-
+  }, [tag, finalArray]);
   return (
     !loader && (
       <div className="flex flex-[5] text-primary flex-col pt-2 px-5 gap-8 pb-2 bg-bgColor">
         <h2 className="text-center text-heading font-bold text-2xl">
           Tag :- {tag[0].toUpperCase() + tag.slice(1, tag.length)}
         </h2>
+        <Filter />
         <h1 className="text-xl text-heading font-bold">Pinned Notes</h1>
         <div className="grid grid-cols-1 text-heading md:grid-cols-2 lg:grid-cols-3 gap-2">
           {!pinned.length > 0

@@ -4,6 +4,7 @@ import { BsFillPinFill, BsPin } from "react-icons/bs";
 import { MdDelete, MdEditNote } from "react-icons/md";
 import { handleNotePin, deleteNote } from "../../../helpers/utils";
 import { SmallLoader } from "../../atomic/loader/small-loader";
+import { ACTION_TYPES } from "../../../helpers/utils/constants";
 const NoteCard = ({ note }) => {
   const [pinLoader, setPinLoader] = useState(false);
   const [deleteLoader, setDeleteLoader] = useState(false);
@@ -21,7 +22,7 @@ const NoteCard = ({ note }) => {
     deleteNote(note, token, dispatchData, setDeleteLoader);
   };
   const handleEdit = () => {
-    dispatchData({ type: "EDIT_NOTE_FORM", payload: note });
+    dispatchData({ type: ACTION_TYPES.EDIT_NOTE, payload: note });
     setModalStatus();
   };
 
@@ -33,6 +34,7 @@ const NoteCard = ({ note }) => {
       <section className="border-b-2 py-0.5 mb-1 flex justify-between ">
         <h1 className="text-ellipsis overflow-hidden whitespace-nowrap w-[100px] mr-3 font-bold">
           {title[0].toUpperCase() + title.substring(1, title.length)}
+          {note.priority}
         </h1>
         <h2 className=" bg-secondary whitespace-nowrap max-w-[250px] font-medium px-2 text-ellipsis overflow-hidden">
           {tag}

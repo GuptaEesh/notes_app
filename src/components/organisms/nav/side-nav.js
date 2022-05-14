@@ -5,6 +5,7 @@ import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { useAuth, useData } from "../../../helpers/context";
 import { Button } from "../../index";
 import "./side-nav.css";
+import { requests } from "../../../helpers/utils";
 const SideNav = ({ darkMode, changeTheme }) => {
   const {
     setModalStatus,
@@ -42,7 +43,7 @@ const SideNav = ({ darkMode, changeTheme }) => {
         btnFunc={setModalStatus}
       />
       <section className="flex flex-col gap-4 border-b-2 mb-2 text-primary side-nav overflow-y-auto pb-5 h-full">
-        <NavLink className={activeClass} to={`/notes/${"all"}`}>
+        <NavLink className={activeClass} to={requests.notes}>
           All Notes
         </NavLink>
         {tags?.map((tag) => (
@@ -51,8 +52,11 @@ const SideNav = ({ darkMode, changeTheme }) => {
           </NavLink>
         ))}
       </section>
-      <div className=" mb-5 self-start w-max rounded p-1 gap-2 bg-primary text-secondary flex items-center justify-center">
-        <Button btnType="font-bold" btnText=" Log Out" btnFunc={logout} />
+      <div
+        onClick={logout}
+        className="cursor-pointer mb-5 self-start w-max rounded p-1 gap-2 bg-primary text-secondary flex items-center justify-center"
+      >
+        <h1 className="text-secondary font-bold">Log Out</h1>
         <AiOutlineLogout className="bg-secondary rounded-sm text-3xl" />
       </div>
     </div>
