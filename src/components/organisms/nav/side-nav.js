@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useData } from "../../../helpers/context";
 import { Button } from "../../index";
 import "./side-nav.css";
 const SideNav = () => {
-  const { setModalStatus } = useData();
+  const {
+    setModalStatus,
+    data: { pinnedNotes, unPinnedNotes },
+  } = useData();
+  const [notes, setNotes] = useState([]);
+  useEffect(() => {
+    setNotes([...pinnedNotes, ...unPinnedNotes]);
+  }, [pinnedNotes, unPinnedNotes]);
+  let tags = Object.keys(
+    notes?.reduce(
+      (tagsCollector, note) => ({
+        ...tagsCollector,
+        [note.tag.toLowerCase()]: 1,
+      }),
+      {}
+    )
+  );
+
   const activeClass = ({ isActive }) =>
     isActive ? "bg-glass text-secondary font-bold" : "";
   return (
@@ -19,12 +36,11 @@ const SideNav = () => {
         <NavLink className={activeClass} to={`/notes/${"all"}`}>
           All Notes
         </NavLink>
-        <NavLink className={activeClass} to={`/notes/${"work"}`}>
-          Work
-        </NavLink>
-        <NavLink className={activeClass} to="/notes/2">
-          Play
-        </NavLink>
+        {tags?.map((tag) => (
+          <NavLink key={tag} className={activeClass} to={`/notes/${tag}`}>
+            {tag}
+          </NavLink>
+        ))}
       </section>
     </div>
   );

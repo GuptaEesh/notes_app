@@ -26,7 +26,7 @@ const NoteCard = ({ note }) => {
   return (
     <div
       style={{ backgroundColor: `${color}` }}
-      className="p-2 border-4 border-glass rounded-md flex flex-col w-[25rem] h-[10rem] relative"
+      className="p-2 border-4 border-glass rounded-md flex flex-col w-full h-[10rem] relative"
     >
       <section className="border-b-2 py-0.5 mb-1 flex justify-between ">
         <h1 className="text-ellipsis overflow-hidden whitespace-nowrap w-[100px] mr-3 font-bold">
