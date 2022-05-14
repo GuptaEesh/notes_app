@@ -3,24 +3,26 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "./modal.css";
 import { Input } from "../../atomic/input";
-import { BsFillPinFill, BsPin } from "react-icons/bs";
+import {
+  BsFillPinFill,
+  BsPin,
+  BsArchive,
+  BsArchiveFill,
+} from "../../../helpers/icons/icons-used";
 import { useAuth, useData } from "../../../helpers/context";
 import { addNote, updateNote } from "../../../helpers/utils";
 import { ACTION_TYPES } from "../../../helpers/utils/constants";
 
 const AddNoteModal = () => {
   let priorityArray = [
-    <option key={"1"} value={1}>
+    <option className=" text-heading" key={"1"} value={1}>
       1
     </option>,
-    <option key={"2"} value={2}>
+    <option className=" text-heading" key={"2"} value={2}>
       2
     </option>,
-    <option key={"3"} value={3}>
+    <option className=" text-heading" key={"3"} value={3}>
       3
-    </option>,
-    <option key={"4"} value={4}>
-      4
     </option>,
   ];
   const modules = {
@@ -45,6 +47,9 @@ const AddNoteModal = () => {
   };
   const handlePin = () => {
     dispatchData({ type: ACTION_TYPES.IS_PINNED });
+  };
+  const handleArchive = () => {
+    dispatchData({ type: ACTION_TYPES.IS_ARCHIVED });
   };
   const inputHandler = (e) => {
     dispatchData({ type: ACTION_TYPES.FORM_DETAILS, payload: e });
@@ -80,7 +85,7 @@ const AddNoteModal = () => {
     <div className=" z-10 fixed backdrop-blur-[10px] h-screen w-screen bg-glass flex items-center justify-center">
       <form
         onSubmit={submitHandler}
-        className=" min-w-[20rem] w-[50%] bg-glass p-2  lg:h-[50vh] md:h-[50vh] h-[70vh] flex flex-col gap-4"
+        className=" min-w-[20rem] w-[50%] bg-glass p-2  lg:h-[55vh] md:h-[55vh] h-[75vh] flex flex-col gap-4"
       >
         <Input
           inputType="text"
@@ -120,32 +125,46 @@ const AddNoteModal = () => {
               ></div>
             ))}
           </div>
-
-          <div className=" p-2">
-            {singleNote.isPinned ? (
-              <BsFillPinFill
-                onClick={handlePin}
-                className="bg-secondary cursor-pointer rounded-full text-2xl p-0.5 text-primary"
-              />
-            ) : (
-              <BsPin
-                onClick={handlePin}
-                className="bg-secondary cursor-pointer rounded-full text-2xl p-0.5 text-primary"
-              />
-            )}
-          </div>
+          <section className="flex items-center gap-1">
+            <div className=" p-2">
+              {singleNote.isPinned ? (
+                <BsFillPinFill
+                  onClick={handlePin}
+                  className="bg-secondary cursor-pointer rounded-full text-2xl p-0.5 text-primary"
+                />
+              ) : (
+                <BsPin
+                  onClick={handlePin}
+                  className="bg-secondary cursor-pointer rounded-full text-2xl p-0.5 text-primary"
+                />
+              )}
+            </div>
+            <div className=" p-2">
+              {singleNote.isArchived ? (
+                <BsArchiveFill
+                  onClick={handleArchive}
+                  className="bg-secondary cursor-pointer rounded-full text-2xl p-1 text-primary"
+                />
+              ) : (
+                <BsArchive
+                  onClick={handleArchive}
+                  className="bg-secondary cursor-pointer rounded-full text-2xl p-1 text-primary"
+                />
+              )}
+            </div>
+          </section>
         </section>
 
         <label className="font-bold">
-          Qty:
+          Priority:
           <select
             value={singleNote.priority}
             onChange={priorityHandler}
             className=" font-bold "
-            name="quantity"
-            id="quantity"
+            name="priority"
+            id="priority"
           >
-            <optgroup className="bg-black">{priorityArray}</optgroup>
+            <optgroup className="bg-bgColor">{priorityArray}</optgroup>
           </select>
         </label>
 

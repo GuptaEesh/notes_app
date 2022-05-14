@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { AiOutlineLogout } from "react-icons/ai";
-import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
+import {
+  BsFillMoonFill,
+  BsFillSunFill,
+  BiArchive,
+  BiTrash,
+  AiOutlineLogout,
+} from "../../../helpers/icons/icons-used";
 import { useAuth, useData } from "../../../helpers/context";
 import { Button } from "../../index";
 import "./side-nav.css";
@@ -27,6 +32,10 @@ const SideNav = ({ darkMode, changeTheme }) => {
   );
 
   const activeClass = ({ isActive }) => (isActive ? "bg-glass font-bold" : "");
+  const activeClass2 = ({ isActive }) =>
+    isActive
+      ? "bg-glass gap-4 p-2 font-bold flex items-center nav-icon"
+      : "flex items-center p-2 gap-1";
   return (
     <div className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 top-0 left-0 sticky h-[100vh] min-w-[12rem]">
       <section className="flex items-center mb-[5rem] mt-[2rem] justify-between">
@@ -42,6 +51,15 @@ const SideNav = ({ darkMode, changeTheme }) => {
         btnText="Add Note +"
         btnFunc={setModalStatus}
       />
+      <NavLink className={activeClass2} to="/archive">
+        <BiArchive className=" rounded-sm text-3xl" />
+        <h1 className=" font-bold">Archived Notes</h1>
+      </NavLink>
+      <NavLink className={activeClass2} to="/trash">
+        <BiTrash className="rounded-sm text-3xl" />
+        <h1 className=" font-bold">Trash Notes</h1>
+      </NavLink>
+
       <section className="flex flex-col gap-4 border-b-2 mb-2 text-primary side-nav overflow-y-auto pb-5 h-full">
         <NavLink className={activeClass} to={requests.notes}>
           All Notes

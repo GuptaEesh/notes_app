@@ -10,8 +10,12 @@ const NotesScreen = () => {
   const { loader } = useData();
   const [notes, setNotes] = useState([]);
   const navigate = useNavigate();
-  const pinned = notes.filter((note) => note.isPinned);
-  const unPinned = notes.filter((note) => !note.isPinned);
+  const pinned = notes.filter(
+    (note) => note.isPinned && !note.isArchived && !note.isTemporarilyDeleted
+  );
+  const unPinned = notes.filter(
+    (note) => !note.isPinned && !note.isArchived && !note.isTemporarilyDeleted
+  );
   useEffect(() => {
     if (
       !finalArray.some(
