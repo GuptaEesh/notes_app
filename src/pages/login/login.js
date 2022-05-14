@@ -5,7 +5,7 @@ import {
   Input,
   InputPass,
   InputSimple,
-  Loader,
+  SmallLoader,
 } from "../../components";
 import { useAuth } from "../../helpers/context";
 import { loginHandler, requests } from "../../helpers/utils";
@@ -38,16 +38,16 @@ export function LoginScreen() {
   const submitHandler = (e) =>
     loginHandler(e, setFormFields, login, formFields);
   return (
-    <div className="flex bg-light_background h-screen w-screen items-center justify-center">
+    <div className="flex bg-bgColor h-screen w-screen items-center justify-center">
       {loader ? (
         <div className="flex flex-col items-center">
-          <Loader />
-          <h2>Logging you in</h2>
+          <SmallLoader />
+          <h2 className="text-heading">Logging you in</h2>
         </div>
       ) : (
         <form
           onSubmit={submitHandler}
-          className="flex bg-glass backdrop-blur-md shadow-[0_8px_32px_0_rgba(51, 84, 155, 0.527)] flex-col rounded p-4 gap-4 w-80"
+          className="flex bg-glass backdrop-blur-md shadow-[0_0_16px_0_var(--color-heading)] flex-col rounded p-4 gap-4 w-80"
         >
           <InputSimple
             title="Email"
@@ -79,7 +79,7 @@ export function LoginScreen() {
             btnText="Fill-in test credentials"
             btnFunc={guestLogin}
           />
-          <span className="flex flex-col">
+          <span className="flex flex-col text-heading">
             New Here?
             <Link to="/signup">
               <span className="rounded py-0.5 px-1 pointer bg-secondary font-bold">

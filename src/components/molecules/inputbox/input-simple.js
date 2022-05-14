@@ -12,7 +12,7 @@ export function InputSimple({
 }) {
   return (
     <label className="flex flex-col ">
-      <span>{name}</span>
+      <span className="text-heading">{name}</span>
       <Input
         inputClass={inputClass}
         inputType={inputType}

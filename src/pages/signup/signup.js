@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Input, InputPass, InputSimple, Loader } from "../../components";
+import { Input, InputPass, InputSimple, SmallLoader } from "../../components";
 import { useAuth } from "../../helpers/context";
 import { requests, signUpHandler } from "../../helpers/utils";
 import { PassChecker } from "./password-checker";
@@ -32,16 +32,16 @@ export function SignUpScreen() {
     signUpHandler(e, setFormFields, login, formFields);
 
   return (
-    <div className="flex bg-light_background h-screen w-screen items-center justify-center ">
+    <div className="flex bg-bgColor h-screen w-screen items-center justify-center ">
       {loader ? (
         <div className="flex flex-col items-center">
-          <Loader />
-          <h2>Signing you in</h2>
+          <SmallLoader />
+          <h2 className="text-heading">Signing you up</h2>
         </div>
       ) : (
         <form
           onSubmit={submitHandler}
-          className="flex bg-glass backdrop-blur-md shadow-[0_8px_32px_0_rgba(51, 84, 155, 0.527)] flex-col rounded p-4 gap-4 w-80"
+          className="flex bg-glass backdrop-blur-md shadow-[0_0_16px_0_var(--color-heading)] flex-col rounded p-4 gap-4 w-80"
         >
           {" "}
           <InputSimple
@@ -86,7 +86,7 @@ export function SignUpScreen() {
           ) : (
             <span className=" invisible	">Good to go!</span>
           )}
-          <span className="flex flex-col">
+          <span className="flex flex-col text-heading">
             Already a customer?
             <Link to="/signin">
               <span className="rounded py-0.5 px-1 pointer bg-secondary font-bold">

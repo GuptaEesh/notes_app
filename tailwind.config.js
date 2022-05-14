@@ -1,23 +1,18 @@
-const colors = {
-  primary_color: "rgba(0,0,0,0.8)",
-  glass: "rgba(0,0,0,0.5)",
-  secondary_color: "rgb(255,255,0)",
-  light_background_color: "rgba(255,250,0,0.2)",
-  danger_color: "red",
-  white: "white",
-};
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
+      bgColor: "var(--color-bg)",
+      heading: "var(--color-heading)",
       transparent: "transparent",
       current: "currentColor",
-      primary: colors.primary_color,
-      glass: colors.glass,
-      secondary: colors.secondary_color,
-      light_background: colors.light_background_color,
-      error: colors.danger_color,
-      white: colors.white,
+      primary: "var(--color-primary)",
+      glass: "var(--color-glass)",
+      light_glass: "var(--color-light-glass)",
+      secondary: "var(--color-secondary)",
+      light_background: "var(--color-light-secondary)",
+      error: "var(--color-danger)",
+      white: "var(--color-white)",
     },
     extend: {},
   },

@@ -13,7 +13,7 @@ export function InputPass({
   const [visibility, setVisibility] = useState(false);
   return (
     <label className="flex flex-col ">
-      <span>{name}</span>
+      <span className="text-heading">{name}</span>
       <div className="w-full relative flex items-center">
         <Input
           inputClass={inputClass}
