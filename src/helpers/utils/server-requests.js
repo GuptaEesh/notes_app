@@ -73,7 +73,6 @@ const getNotes = async (token, dispatchData) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log(res.data.data); //createdAt updatedAt
   updateNoteRealTime(res.data.data, dispatchData);
 };
 const addNote = async (token, note, dispatchData, setLoader) => {
