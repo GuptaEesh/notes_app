@@ -27,7 +27,7 @@ const SideNav = ({ darkMode, changeTheme }) => {
 
   const activeClass = ({ isActive }) => (isActive ? "bg-glass font-bold" : "");
   return (
-    <div className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 top-0 left-0 sticky h-[100vh]">
+    <div className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 top-0 left-0 sticky h-[100vh] min-w-[12rem]">
       <section className="flex items-center mb-[5rem] mt-[2rem] justify-between">
         <h1 className="text-3xl text-primary">Attr🔷ct</h1>
         {darkMode ? (
