@@ -5,10 +5,10 @@
         color: var(--color-primary);
 }
 :root{
-        --color-bg:#fff;
-        --color-heading:black;
-        --color-danger:red;
-        --color-white:white;
+        --color-bg:rgb(255,255,255);
+        --color-heading:rgba(0,0,0,0.8);
+        --color-danger:rgb(255,0,0);
+        --color-white:rgb(255,255,255);
         --color-glass:rgba(0,0,0,0.2);
         --color-light-glass:rgba(181, 181, 181, 0.6);
         --color-primary:rgba(0,0,0,0.8);
@@ -16,16 +16,13 @@
         --color-light-secondary:rgba(255,250,0,0.2);
 }
 .dark{
-        --color-bg:black;
-        --color-heading:#fff;
-        --color-danger:red;
-        --color-white:#ECDBBA;
+        --color-bg:rgba(0,0,0,0.8);
+        --color-heading:rgb(255,255,255);
+        --color-danger:rgb(255,0,0);
+        --color-white:rgb(236,219,186);
         --color-glass:rgba(22,22,22,0.2);
-        --color-light-glass:#413F42;
+        --color-light-glass:rgb(65,63,66);
         --color-primary:rgb(36, 16, 42);
-        --color-secondary:#e4e4e4;
-        --color-light-secondary:#a1a1a1;
-}
-body{
-        transition: background-color 0.5s ease-in-out;
+        --color-secondary:rgb(228,228,228);
+        --color-light-secondary:rgb(161,161,161);
 }
