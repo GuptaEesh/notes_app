@@ -66,7 +66,7 @@ const NoteCard = ({ note }) => {
           {tag}
         </h2>
       </section>
-      <section ref={descriptionRef}></section>
+      <section ref={descriptionRef} className="break-all overflow-hidden"></section>
 
       <section className="bg-glass rounded flex flex-col items-center gap-2 absolute p-1 right-2  top-1/4">
         <div className=" bg-secondary cursor-pointer rounded-full ">

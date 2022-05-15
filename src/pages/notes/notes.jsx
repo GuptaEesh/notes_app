@@ -40,7 +40,7 @@ const NotesScreen = () => {
     !loader && (
       <div className="flex flex-[5] text-primary flex-col pt-2 px-5 gap-8 pb-2 bg-bgColor">
         <section className="flex flex-col items-center">
-          <h1 className="text-center font-bold  text-heading  text-2xl">Tag :- {tag[0].toUpperCase() + tag.slice(1, tag.length)}</h1>
+          <h1 className="text-center font-bold  text-heading text-2xl">Tag :- {tag[0].toUpperCase() + tag.slice(1, tag.length)}</h1>
           <h2 className="text-heading">Cards opacity depends on <span className="font-bold text-heading">priority</span></h2>
         </section>
         <Filter />
