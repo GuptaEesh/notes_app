@@ -13,6 +13,7 @@ import {
   NotesScreen,
   Archive,
   Trash,
+  ErrorPage,
 } from "./pages";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
       {isModalOpen && <AddNoteModal />}
       {loader && !routeCheck && <Loader />}
       <Routes>
+        <Route path="*" element={<ErrorPage />} />
         <Route path={requests.home} element={<Home />} />
         <Route element={<RedirectAuth />}>
           <Route path={requests.login} element={<LoginScreen />} />
