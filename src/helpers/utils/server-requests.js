@@ -73,7 +73,6 @@ const getNotes = async (token, dispatchData) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log(res.data.data); //createdAt updatedAt
   updateNoteRealTime(res.data.data, dispatchData);
 };
 const addNote = async (token, note, dispatchData, setLoader) => {
@@ -95,6 +94,48 @@ const handleNotePin = async (note, token, dispatchData, setSmallLoader) => {
   const response = await axios.put(
     `/api/note/${note._id}`,
     { ...note, isPinned: !note.isPinned },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  updateNoteRealTime(response.data.data, dispatchData);
+  setSmallLoader(false);
+};
+const handleNoteArchive = async (note, token, dispatchData, setSmallLoader) => {
+  setSmallLoader(true);
+  const response = await axios.put(
+    `/api/note/${note._id}`,
+    {
+      ...note,
+      isArchived: !note.isArchived,
+      isTemporarilyDeleted: false,
+      isPinned: false,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  updateNoteRealTime(response.data.data, dispatchData);
+  setSmallLoader(false);
+};
+const handleNoteTemporaryDeletion = async (
+  note,
+  token,
+  dispatchData,
+  setSmallLoader
+) => {
+  setSmallLoader(true);
+  const response = await axios.put(
+    `/api/note/${note._id}`,
+    {
+      ...note,
+      isTemporarilyDeleted: !note.isTemporarilyDeleted,
+      isPinned: false,
+    },
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -136,6 +177,8 @@ export {
   getNotes,
   addNote,
   handleNotePin,
+  handleNoteArchive,
+  handleNoteTemporaryDeletion,
   updateNote,
   deleteNote,
 };

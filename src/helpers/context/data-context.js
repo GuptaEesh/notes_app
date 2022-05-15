@@ -18,11 +18,16 @@ const DataProvider = ({ children }) => {
   const setModalStatus = () => setIsModalOpen(!isModalOpen);
   useEffect(() => {
     (async () => {
-      setLoader(true);
-      await getNotes(token, dispatchData);
-      setLoader(false);
+      try {
+        setLoader(true);
+        await getNotes(token, dispatchData);
+        setLoader(false);
+      } finally {
+        setLoader(false);
+      }
     })();
-  }, []);
+  }, [token]);
+
   return (
     <DataContext.Provider
       value={{

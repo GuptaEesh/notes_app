@@ -10,7 +10,7 @@ import {
 import { FilterHolder } from './filter-holder'
 export function Filter() {
     const { filters, dispatchFilter } = useFilter()
-    const priorityArray=[{title:"Least Prior",priority:1},{title:"Somewhat Prior",priority:2},{title:"Utmost Prior",priority:3}]
+    const priorityArray=[{title:"Utmost Prior",priority:1},{title:"Somewhat Prior",priority:2},{title:"Least Prior",priority:3}]
     return (
         <div className="flex gap-1 justify-around flex-wrap bg-light_background">     
             <FilterHolder legendName="Date Sort">
@@ -29,6 +29,7 @@ export function Filter() {
             </FilterHolder>
             <FilterHolder legendName="Priority Sort">
                 {priorityArray.map(({title,priority})=><Radio
+                    key={title}
                     radioName="priority"
                     radioText={title}
                     checkStatus={filters.priority === priority}

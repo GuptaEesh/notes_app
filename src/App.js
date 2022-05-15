@@ -6,7 +6,15 @@ import { useData } from "./helpers/context";
 import { RedirectAuth } from "./helpers/router/redirects-auth";
 import { RequireAuth } from "./helpers/router/requires-auth";
 import { requests } from "./helpers/utils";
-import { Home, LoginScreen, SignUpScreen, NotesScreen } from "./pages";
+import {
+  Home,
+  LoginScreen,
+  SignUpScreen,
+  NotesScreen,
+  Archive,
+  Trash,
+  ErrorPage,
+} from "./pages";
 
 function App() {
   const { loader, isModalOpen } = useData();
@@ -25,10 +33,10 @@ function App() {
     location.pathname === "/signin" ||
     location.pathname === "/signup";
   return (
-    <div className={`${darkMode ? "dark" : "App"} flex`}>
+    <div className={`${darkMode ? "dark" : "App"} flex `}>
       {!routeCheck && <SideNav darkMode={darkMode} changeTheme={changeTheme} />}
       {isModalOpen && <AddNoteModal />}
-      {loader && <Loader />}
+      {loader && !routeCheck && <Loader />}
       <Routes>
         <Route path={requests.home} element={<Home />} />
         <Route element={<RedirectAuth />}>
@@ -43,6 +51,23 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route
+          path="/archive"
+          element={
+            <RequireAuth>
+              <Archive />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/trash"
+          element={
+            <RequireAuth>
+              <Trash />
+            </RequireAuth>
+          }
+        />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );

@@ -26,3 +26,6 @@
         --color-secondary:#e4e4e4;
         --color-light-secondary:#a1a1a1;
 }
+body{
+        transition: background-color 0.5s ease-in-out;
+}
