@@ -85,7 +85,7 @@ const AddNoteModal = () => {
     <div className=" z-10 fixed backdrop-blur-[10px] h-screen w-screen bg-glass flex items-center justify-center">
       <form
         onSubmit={submitHandler}
-        className=" min-w-[20rem] w-[50%] bg-glass p-2  lg:h-[55vh] md:h-[55vh] h-[75vh] flex flex-col gap-4"
+        className=" min-w-[20rem]  border-2 border-heading w-[50%] bg-glass p-2  lg:h-[55vh] md:h-[55vh] h-[75vh] flex flex-col gap-4"
       >
         <Input
           inputType="text"
