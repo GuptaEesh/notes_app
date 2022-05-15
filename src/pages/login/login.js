@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Input,
@@ -14,12 +14,8 @@ export function LoginScreen() {
     error: false,
     loader: false,
   };
-  const { login, isAuthenticated } = useAuth();
+  const { login } = useAuth();
   const [formFields, setFormFields] = useState(initial);
-  const navigate = useNavigate();
-  useEffect(() => {
-    isAuthenticated ? navigate("/") : navigate(requests.login);
-  }, [isAuthenticated]);
   const { email, password, error, loader } = formFields;
 
   const guestLogin = (e) => {
@@ -81,7 +77,7 @@ export function LoginScreen() {
           />
           <span className="flex flex-col text-heading">
             New Here?
-            <Link to="/signup">
+            <Link to={requests.signup}>
               <span className="rounded py-0.5 px-1 pointer bg-secondary font-bold">
                 Register Here &gt;{" "}
               </span>

@@ -3,7 +3,9 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import { AddNoteModal, Loader, SideNav } from "./components";
 import { useData } from "./helpers/context";
+import { RedirectAuth } from "./helpers/router/redirects-auth";
 import { RequireAuth } from "./helpers/router/requires-auth";
+import { requests } from "./helpers/utils";
 import { Home, LoginScreen, SignUpScreen, NotesScreen } from "./pages";
 
 function App() {
@@ -28,9 +30,11 @@ function App() {
       {isModalOpen && <AddNoteModal />}
       {loader && <Loader />}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signin" element={<LoginScreen />} />
-        <Route path="/signup" element={<SignUpScreen />} />
+        <Route path={requests.home} element={<Home />} />
+        <Route element={<RedirectAuth />}>
+          <Route path={requests.login} element={<LoginScreen />} />
+          <Route path={requests.signup} element={<SignUpScreen />} />
+        </Route>
         <Route
           path="/notes/:tag"
           element={

@@ -1,4 +1,4 @@
-import { requests } from "./constants";
+import { ACTION_TYPES, requests } from "./constants";
 import { axios } from "./index";
 
 const updateNoteRealTime = (data, dispatch) => {
@@ -9,7 +9,7 @@ const updateNoteRealTime = (data, dispatch) => {
     else unpinnedNotes = [...unpinnedNotes, note];
   });
   dispatch({
-    type: "UPDATE_NOTES",
+    type: ACTION_TYPES.NOTES,
     payload: { pinned: pinnedNotes, unPinned: unpinnedNotes },
   });
 };
@@ -67,12 +67,13 @@ const signUpHandler = async (e, setFormFields, login, formFields) => {
   }
 };
 
-const getNotes = async (token, dispatchData, tag) => {
+const getNotes = async (token, dispatchData) => {
   const res = await axios.get(`/api/note`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+  console.log(res.data.data); //createdAt updatedAt
   updateNoteRealTime(res.data.data, dispatchData);
 };
 const addNote = async (token, note, dispatchData, setLoader) => {

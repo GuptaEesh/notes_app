@@ -6,8 +6,23 @@ import { Input } from "../../atomic/input";
 import { BsFillPinFill, BsPin } from "react-icons/bs";
 import { useAuth, useData } from "../../../helpers/context";
 import { addNote, updateNote } from "../../../helpers/utils";
+import { ACTION_TYPES } from "../../../helpers/utils/constants";
 
 const AddNoteModal = () => {
+  let priorityArray = [
+    <option key={"1"} value={1}>
+      1
+    </option>,
+    <option key={"2"} value={2}>
+      2
+    </option>,
+    <option key={"3"} value={3}>
+      3
+    </option>,
+    <option key={"4"} value={4}>
+      4
+    </option>,
+  ];
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike"],
@@ -25,32 +40,37 @@ const AddNoteModal = () => {
   } = useData();
   const { token } = useAuth();
   const closeModal = () => {
-    dispatchData({ type: "RESET_NOTE" });
+    dispatchData({ type: ACTION_TYPES.RESET_NOTES });
     setModalStatus();
   };
   const handlePin = () => {
-    dispatchData({ type: "IS_PINNED" });
+    dispatchData({ type: ACTION_TYPES.IS_PINNED });
   };
   const inputHandler = (e) => {
-    dispatchData({ type: "FORM_DETAILS", payload: e });
+    dispatchData({ type: ACTION_TYPES.FORM_DETAILS, payload: e });
   };
 
   const handleSelectedColor = (e) => {
-    dispatchData({ type: "UPDATE_COLOR", payload: e });
+    dispatchData({ type: ACTION_TYPES.UPDATE_COLOR, payload: e });
   };
   const submitHandler = (e) => {
     e.preventDefault();
     singleNote.isEdit
       ? updateNote(token, singleNote, dispatchData, setLoader)
       : addNote(token, singleNote, dispatchData, setLoader);
-    dispatchData({ type: "RESET_NOTE" });
+    dispatchData({ type: ACTION_TYPES.RESET_NOTES });
 
     setModalStatus();
   };
-
+  const priorityHandler = (e) => {
+    dispatchData({
+      type: ACTION_TYPES.SET_PRIORITY,
+      payload: e.target.value,
+    });
+  };
   const quillHandler = (e) => {
     dispatchData({
-      type: "ADD_DESCRIPTION",
+      type: ACTION_TYPES.ADD_DESC,
       payload: e,
     });
   };
@@ -115,6 +135,20 @@ const AddNoteModal = () => {
             )}
           </div>
         </section>
+
+        <label className="font-bold">
+          Qty:
+          <select
+            value={singleNote.priority}
+            onChange={priorityHandler}
+            className=" font-bold "
+            name="quantity"
+            id="quantity"
+          >
+            <optgroup className="bg-black">{priorityArray}</optgroup>
+          </select>
+        </label>
+
         <div className="flex gap-2 self-center">
           <Input
             inputType="submit"

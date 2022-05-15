@@ -1,84 +1,28 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import { dataReducer, getNotes, initialData } from "../utils";
+import { useAuth } from "./auth-context";
 
 const DataContext = createContext(null);
 
 const DataProvider = ({ children }) => {
-  const initialData = {
-    singleNote: {
-      title: "",
-      description: "",
-      isPinned: false,
-      isEdit: false,
-      tag: "",
-      bgColor: "white",
-    },
-    pinnedNotes: [],
-    unPinnedNotes: [],
-  };
-  const dataReducer = (data, action) => {
-    const { type, payload } = action;
-    switch (type) {
-      case "UPDATE_NOTES":
-        return {
-          ...data,
-          pinnedNotes: payload.pinned,
-          unPinnedNotes: payload.unPinned,
-        };
-      case "RESET_NOTE":
-        return {
-          ...data,
-          singleNote: initialData.singleNote,
-        };
-      case "IS_PINNED":
-        return {
-          ...data,
-          singleNote: {
-            ...data.singleNote,
-            isPinned: !data.singleNote.isPinned,
-          },
-        };
-      case "ADD_DESCRIPTION":
-        return {
-          ...data,
-          singleNote: {
-            ...data.singleNote,
-            description: payload,
-          },
-        };
-      case "FORM_DETAILS":
-        return {
-          ...data,
-          singleNote: {
-            ...data.singleNote,
-            [payload.target.name]: payload.target.value,
-          },
-        };
-      case "EDIT_NOTE_FORM":
-        return {
-          ...data,
-          singleNote: {
-            ...payload,
-            color: payload.color,
-            isEdit: true,
-          },
-        };
-      case "UPDATE_COLOR":
-        return {
-          ...data,
-          singleNote: {
-            ...data.singleNote,
-            bgColor: payload.target.dataset.key,
-          },
-        };
-
-      default:
-        return data;
-    }
-  };
   const [data, dispatchData] = useReducer(dataReducer, initialData);
   const [loader, setLoader] = useState(false);
+  const { token } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const setModalStatus = () => setIsModalOpen(!isModalOpen);
+  useEffect(() => {
+    (async () => {
+      setLoader(true);
+      await getNotes(token, dispatchData);
+      setLoader(false);
+    })();
+  }, []);
   return (
     <DataContext.Provider
       value={{

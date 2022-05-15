@@ -1,5 +1,23 @@
 export const requests = {
+  home: "/",
   login: "/signin",
   signup: "/signup",
   notes: "/notes/all",
+};
+export const ACTION_TYPES = {
+  NOTES: "UPDATE_NOTES",
+  RESET_NOTES: "RESET_NOTE",
+  IS_PINNED: "IS_PINNED",
+  ADD_DESC: "ADD_DESCRIPTION",
+  FORM_DETAILS: "FORM_DETAILS",
+  EDIT_NOTE: "EDIT_NOTE_FORM",
+  UPDATE_COLOR: "UPDATE_COLOR",
+  SET_PRIORITY: "SET_PRIORITY",
+};
+
+export const FILTER_ACTIONS = {
+  LATEST_TO_OLD: "LATEST_TO_OLD",
+  OLD_TO_LATEST: "OLD_TO_LATEST",
+  PRIORITY_HANDLE: "PRIORITY_HANDLE",
+  CLEAR_FILTERS: "CLEAR_ALL_FILTERS",
 };
