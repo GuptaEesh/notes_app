@@ -1,5 +1,5 @@
 Notes App
-It has been built using react-JS , CSS and mongo-DB at backend.
+It has been built using react-JS ,Tailwind CSS and mongo-DB at backend.
 
 Features Present:-
 - Login
