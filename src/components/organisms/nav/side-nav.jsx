@@ -31,7 +31,8 @@ const SideNav = ({ darkMode, changeTheme }) => {
     )
   );
 
-  const activeClass = ({ isActive }) => (isActive ? "bg-glass font-bold ml-2 nav-icon2" : "");
+  const activeClass = ({ isActive }) =>
+    isActive ? "bg-glass font-bold ml-2 nav-icon2" : "";
   const activeClass2 = ({ isActive }) =>
     isActive
       ? "bg-glass gap-4 p-2 font-bold flex my-2 items-center nav-icon"
@@ -41,9 +42,9 @@ const SideNav = ({ darkMode, changeTheme }) => {
       <section className="flex items-center mb-[5rem] mt-[2rem] justify-between">
         <h1 className="text-3xl text-primary">Attr🔷ct</h1>
         {darkMode ? (
-          <BsFillSunFill onClick={changeTheme} />
+          <BsFillSunFill className="cursor-pointer" onClick={changeTheme} />
         ) : (
-          <BsFillMoonFill onClick={changeTheme} />
+          <BsFillMoonFill className="cursor-pointer" onClick={changeTheme} />
         )}
       </section>
       <Button
