@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   BsFillMoonFill,
@@ -6,21 +6,33 @@ import {
   BiArchive,
   BiTrash,
   AiOutlineLogout,
+  IoMdArrowRoundBack,
 } from "../../../icons-used";
 import { useAuth, useData } from "../../../helpers/context";
 import { Button } from "../../index";
 import "./side-nav.css";
 import { requests } from "../../../helpers/utils";
+
 const SideNav = ({ showNav, setShowNav, darkMode, changeTheme }) => {
   const {
     setModalStatus,
     data: { pinnedNotes, unPinnedNotes },
   } = useData();
+  const clickRef = useRef();
+  const outsideRef = useRef();
   const { logout } = useAuth();
   const [notes, setNotes] = useState([]);
   useEffect(() => {
     setNotes([...pinnedNotes, ...unPinnedNotes]);
   }, [pinnedNotes, unPinnedNotes]);
+  useEffect(() => {
+    const closeSideNavHandler = (e) => {
+      if (!clickRef.current?.contains(e.target)) {
+        setShowNav(!showNav);
+      }
+    };
+    outsideRef.current.addEventListener("mousedown", closeSideNavHandler);
+  }, []);
   let tags = Object.keys(
     notes?.reduce(
       (tagsCollector, note) => ({
@@ -39,16 +51,19 @@ const SideNav = ({ showNav, setShowNav, darkMode, changeTheme }) => {
       : "flex items-center p-2 gap-1 my-2";
   return (
     <div
+      ref={outsideRef}
       className={` z-10 backdrop-blur-2xl md:w-[14rem] absolute w-full md:sticky lg:sticky top-0 left-0 transform ease-in-out transition duration-300 md:translate-x-0 ${
         showNav ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 h-[100vh] sticky w-[14rem] ">
+      <div
+        ref={clickRef}
+        className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 h-[100vh] sticky w-[14rem] "
+      >
         <section className="flex flex-col items-center mb-[3rem] justify-between">
-          <Button
-            btnText="Close Modal"
-            btnType="md:hidden lg:hidden flex bg-primary text-secondary rounded-md px-2 mb-[2rem]"
-            btnFunc={() => setShowNav(!showNav)}
+          <IoMdArrowRoundBack
+            className="cursor-pointer md:hidden lg:hidden self-start text-2xl flex text-secondary mb-[2rem]"
+            onClick={() => setShowNav(!showNav)}
           />
           <section className="flex items-center justify-between w-full md:mt-[3.75rem] lg:mt-[3.75rem]">
             <h1 className="text-3xl text-primary">Attr🔷ct</h1>
