@@ -15,9 +15,11 @@ import {
   Trash,
   ErrorPage,
 } from "./pages";
+import { GiHamburgerMenu } from "./icons-used";
 
 function App() {
   const { loader, isModalOpen } = useData();
+  const [showNav, setShowNav] = useState(false);
   const [darkMode, setDarkMode] = useState(() =>
     JSON.parse(localStorage.getItem("darkTheme"))
   );
@@ -28,13 +30,28 @@ function App() {
   const changeTheme = () => {
     setDarkMode((mode) => !mode);
   };
+
   const routeCheck =
     location.pathname === "/" ||
     location.pathname === "/signin" ||
     location.pathname === "/signup";
   return (
     <div className={`${darkMode ? "dark" : "App"} flex `}>
-      {!routeCheck && <SideNav darkMode={darkMode} changeTheme={changeTheme} />}
+      <GiHamburgerMenu
+        onClick={() => setShowNav(!showNav)}
+        className={`absolute m-3 mt-[13px] block cursor-pointer text-2xl p-1 text-secondary bg-white rounded-full md:hidden lg:hidden ${
+          !showNav ? null : "hidden"
+        }`}
+      />
+
+      {!routeCheck && (
+        <SideNav
+          showNav={showNav}
+          setShowNav={setShowNav}
+          darkMode={darkMode}
+          changeTheme={changeTheme}
+        />
+      )}
       {isModalOpen && <AddNoteModal />}
       {loader && !routeCheck && <Loader />}
       <Routes>

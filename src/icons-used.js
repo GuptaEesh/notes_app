@@ -11,3 +11,4 @@ export {
 } from "react-icons/bs";
 export { BiArchive, BiTrash } from "react-icons/bi";
 export { MdDelete, MdEditNote, MdDeleteForever } from "react-icons/md";
+export { GiHamburgerMenu } from "react-icons/gi";
