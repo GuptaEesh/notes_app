@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import {
   BsFillMoonFill,
@@ -12,8 +12,9 @@ import { useAuth, useData } from "../../../helpers/context";
 import { Button } from "../../index";
 import "./side-nav.css";
 import { requests } from "../../../helpers/utils";
+import { useClickOutsideHook } from "../../../helpers/click-outside-hook";
 
-const SideNav = ({ showNav, setShowNav, darkMode, changeTheme }) => {
+const SideNav = ({ showNav, toggleSideNav, darkMode, changeTheme }) => {
   const {
     setModalStatus,
     data: { pinnedNotes, unPinnedNotes },
@@ -25,14 +26,7 @@ const SideNav = ({ showNav, setShowNav, darkMode, changeTheme }) => {
   useEffect(() => {
     setNotes([...pinnedNotes, ...unPinnedNotes]);
   }, [pinnedNotes, unPinnedNotes]);
-  useEffect(() => {
-    const closeSideNavHandler = (e) => {
-      if (!clickRef.current?.contains(e.target)) {
-        setShowNav(!showNav);
-      }
-    };
-    outsideRef.current.addEventListener("mousedown", closeSideNavHandler);
-  }, []);
+
   let tags = Object.keys(
     notes?.reduce(
       (tagsCollector, note) => ({
@@ -42,7 +36,7 @@ const SideNav = ({ showNav, setShowNav, darkMode, changeTheme }) => {
       {}
     )
   );
-
+  useClickOutsideHook(toggleSideNav, clickRef, outsideRef);
   const activeClass = ({ isActive }) =>
     isActive ? "bg-glass font-bold ml-2 nav-icon2" : "";
   const activeClass2 = ({ isActive }) =>
@@ -56,14 +50,14 @@ const SideNav = ({ showNav, setShowNav, darkMode, changeTheme }) => {
         showNav ? "translate-x-0" : "-translate-x-full"
       }`}
     >
-      <div
+      <aside
         ref={clickRef}
         className="flex flex-[1] pr-2 bg-light_background text-lg flex-col pl-2 pt-2 h-[100vh] sticky w-[14rem] "
       >
         <section className="flex flex-col items-center mb-[3rem] justify-between">
           <IoMdArrowRoundBack
             className="cursor-pointer md:hidden lg:hidden self-start text-2xl flex text-secondary mb-[2rem]"
-            onClick={() => setShowNav(!showNav)}
+            onClick={toggleSideNav}
           />
           <section className="flex items-center justify-between w-full md:mt-[3.75rem] lg:mt-[3.75rem]">
             <h1 className="text-3xl text-primary">Attr🔷ct</h1>
@@ -108,7 +102,7 @@ const SideNav = ({ showNav, setShowNav, darkMode, changeTheme }) => {
           <h1 className="text-secondary font-bold">Log Out</h1>
           <AiOutlineLogout className="bg-secondary rounded-sm text-3xl" />
         </div>
-      </div>
+      </aside>
     </div>
   );
 };

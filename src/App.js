@@ -23,6 +23,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(() =>
     JSON.parse(localStorage.getItem("darkTheme"))
   );
+  const toggleSideNav = () => setShowNav(!showNav);
   const location = useLocation();
   useEffect(() => {
     localStorage.setItem("darkTheme", darkMode);
@@ -38,7 +39,7 @@ function App() {
   return (
     <div className={`${darkMode ? "dark" : "App"} flex `}>
       <GiHamburgerMenu
-        onClick={() => setShowNav(!showNav)}
+        onClick={toggleSideNav}
         className={`absolute m-3 mt-[13px] block cursor-pointer text-2xl p-1 text-secondary bg-white rounded-full md:hidden lg:hidden ${
           !showNav ? null : "hidden"
         }`}
@@ -47,7 +48,7 @@ function App() {
       {!routeCheck && (
         <SideNav
           showNav={showNav}
-          setShowNav={setShowNav}
+          toggleSideNav={toggleSideNav}
           darkMode={darkMode}
           changeTheme={changeTheme}
         />
